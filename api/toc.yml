@@ -1,9 +1,0 @@
-- name: Main
-  href: index.md
-
-- name: API
-  href: api/
-  homepage: api/index.md
-
-- name: Articles
-  href: articles/

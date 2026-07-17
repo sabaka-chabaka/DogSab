@@ -47,6 +47,21 @@ jobs:
     - name: Meta
       run: docfx metadata
       
+    - name: Create DocFX files dynamically
+      run: |
+    
+        touch index.md
+
+    
+        cat << 'EOF' > toc.yml
+        name: Главная
+        href: index.md
+        name: API Справка
+        href: api/
+        EOF
+
+        echo "Файлы index.md и toc.yml успешно созданы на раннере!"
+      
     - name: Run DocFX Build
       run: docfx --logLevel Info
       
