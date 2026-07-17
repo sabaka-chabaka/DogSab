@@ -1,4 +1,5 @@
 name: workflow.yml
+
 on:
   push:
     branches: [ master ]
@@ -9,10 +10,8 @@ permissions:
   id-token: write
 
 jobs:
-  
   build-and-test:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -50,6 +49,12 @@ jobs:
         
       - name: DocFX build
         run: docfx build
+
+      - name: Clean old pages artifact (on re-run)
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: github-pages
+          failOnError: false
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
