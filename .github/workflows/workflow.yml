@@ -44,7 +44,7 @@ jobs:
     - name: Build Project
       run: |
         dotnet restore
-          otnet build --configuration Release
+        dotnet build --configuration Release
 
     - name: Install DocFX tool
       run: dotnet tool install -g docfx
@@ -52,8 +52,8 @@ jobs:
     - name: Run DocFX Build
       run: docfx
       
-      - name: Prepare Static Site Directory
-        run: |
+    - name: Prepare Static Site Directory
+      run: |
           mkdir -ント public-site || true
           
           BUILD_DIR=$(find . -name "index.html" ! -path "./public-site/*" ! -path "*/obj/*" ! -path "*/bin/*" | head -n 1 | xargs dirname)
@@ -68,17 +68,17 @@ jobs:
           
           touch ./public-site/.nojekyll
       
-      - name: Clean old pages artifact
-        uses: geekyeggo/delete-artifact@v5
-        with:
-          name: github-pages
-          failOnError: false
+    - name: Clean old pages artifact
+      uses: geekyeggo/delete-artifact@v5
+      with:
+        name: github-pages
+        failOnError: false
 
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: public-site
+    - name: Upload Pages Artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: public-site
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
