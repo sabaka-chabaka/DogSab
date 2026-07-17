@@ -16,6 +16,9 @@
     }
   ],
   "build": {
+    "globalMetadata": {
+      "_appBaseHref": "/DogSab/"
+    },
     "content": [
       {
         "files": [
