@@ -50,6 +50,9 @@ jobs:
       - name: DocFX build
         run: docfx build
 
+      - name: Create .nojekyll file
+        run: touch _site/.nojekyll
+
       - name: Clean old pages artifact (on re-run)
         uses: geekyeggo/delete-artifact@v5
         with:
