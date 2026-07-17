@@ -40,7 +40,6 @@ jobs:
       with:
         dotnet-version: '10.0'
       
-      
     - name: Install DocFX tool
       run: dotnet tool install -g docfx
       
