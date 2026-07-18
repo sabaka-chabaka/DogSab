@@ -20,5 +20,6 @@
     <Folder Name="/tests/Platform/Core/Impl/">
     </Folder>
     <Folder Name="/tests/Platform/Core/Impl/Tests/">
+        <Project Path="tests/Platform/Core/Impl/Tests/DogSab.Platform.Core.Impl.Tests/DogSab.Platform.Core.Impl.Tests.csproj" />
     </Folder>
 </Solution>
