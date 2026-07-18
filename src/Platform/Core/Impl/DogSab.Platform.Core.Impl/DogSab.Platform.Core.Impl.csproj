@@ -9,8 +9,6 @@
 
         <IsPackable>true</IsPackable>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-
-        <InternalsVisibleTo Include="DogSab.Platform.Core.Impl.Tests" />
     </PropertyGroup>
 
 </Project>
