@@ -4,6 +4,13 @@ namespace DogSab.Platform.Core.Abstractions.Services;
 public interface IServiceContainer
 {
     /// <summary>
+    /// The parent container this container delegates to when a requested service
+    /// is not registered in its own scope, or <c>null</c> if this is the root
+    /// (application-level) container.
+    /// </summary>
+    IServiceContainer? Parent { get; }
+    
+    /// <summary>
     /// Resolves a service instance by its interface type, creating it lazily if needed.
     /// </summary>
     /// <typeparam name="T">The service interface to resolve.</typeparam>
