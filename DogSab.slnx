@@ -8,4 +8,7 @@
     <Folder Name="/src/Platform/Core/Abstractions/">
         <Project Path="src/Platform/Core/Abstractions/DogSab.Platform.Core.Abstractions/DogSab.Platform.Core.Abstractions.csproj" />
     </Folder>
+    <Folder Name="/src/Platform/Core/Impl/">
+        <Project Path="src/Platform/Core/Impl/DogSab.Platform.Core.Impl/DogSab.Platform.Core.Impl.csproj" />
+    </Folder>
 </Solution>
