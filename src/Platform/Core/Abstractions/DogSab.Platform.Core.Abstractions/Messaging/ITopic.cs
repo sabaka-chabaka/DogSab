@@ -5,6 +5,9 @@ public interface ITopic
 {
     /// <summary>Human-readable name of the topic, used for logging and diagnostics.</summary>
     string DisplayName { get; }
+    
+    /// <summary>The thread on which this topic's subscribers are invoked when a message is published.</summary>
+    DeliveryMode DeliveryMode { get; }
 }
 
 /// <summary>
