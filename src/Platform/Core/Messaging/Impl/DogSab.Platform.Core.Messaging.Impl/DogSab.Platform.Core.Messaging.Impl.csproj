@@ -10,8 +10,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\DogSab.Platform.Core.Abstractions\DogSab.Platform.Core.Abstractions.csproj" />
-        <ProjectReference Include="..\DogSab.Platform.Core.Threading.Impl\DogSab.Platform.Core.Threading.Impl.csproj" />
+      <ProjectReference Include="..\..\..\Abstractions\DogSab.Platform.Core.Abstractions\DogSab.Platform.Core.Abstractions.csproj" />
+      <ProjectReference Include="..\..\..\Threading\Impl\DogSab.Platform.Core.Threading.Impl\DogSab.Platform.Core.Threading.Impl.csproj" />
     </ItemGroup>
 
 
