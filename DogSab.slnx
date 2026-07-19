@@ -11,15 +11,4 @@
     <Folder Name="/src/Platform/Core/Impl/">
         <Project Path="src/Platform/Core/Impl/DogSab.Platform.Core.Impl/DogSab.Platform.Core.Impl.csproj" />
     </Folder>
-    <Folder Name="/tests/">
-    </Folder>
-    <Folder Name="/tests/Platform/">
-    </Folder>
-    <Folder Name="/tests/Platform/Core/">
-    </Folder>
-    <Folder Name="/tests/Platform/Core/Impl/">
-    </Folder>
-    <Folder Name="/tests/Platform/Core/Impl/Tests/">
-        <Project Path="tests/Platform/Core/Impl/Tests/DogSab.Platform.Core.Impl.Tests/DogSab.Platform.Core.Impl.Tests.csproj" />
-    </Folder>
 </Solution>
