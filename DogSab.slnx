@@ -11,4 +11,8 @@
     <Folder Name="/src/Platform/Core/Impl/">
         <Project Path="src/Platform/Core/Impl/DogSab.Platform.Core.Impl/DogSab.Platform.Core.Impl.csproj" />
     </Folder>
+    <Folder Name="/src/Platform/Core/Threading/" />
+    <Folder Name="/src/Platform/Core/Threading/Impl/">
+        <Project Path="src/Platform/Core/Threading/Impl/DogSab.Platform.Core.Threading.Impl/DogSab.Platform.Core.Threading.Impl.csproj" />
+    </Folder>
 </Solution>
