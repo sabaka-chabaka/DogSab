@@ -14,6 +14,9 @@ public sealed class ReadWriteActionManagerImpl : IReadWriteActionManager
 {
     /// <summary>The underlying lock guarding the platform's shared model.</summary>
     private readonly PlatformReaderWriterLock _platformLock;
+    
+    /// <summary>The underlying lock, exposed internally for diagnostics components like <see cref="Diagnostics.DeadlockDetector"/>.</summary>
+    internal PlatformReaderWriterLock UnderlyingLock => _platformLock;
 
     /// <summary>
     /// Creates a new read/write action manager.
