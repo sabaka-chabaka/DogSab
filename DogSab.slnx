@@ -19,4 +19,8 @@
     <Folder Name="/src/Platform/Core/Messaging/Impl/">
         <Project Path="src/Platform/Core/Messaging/Impl/DogSab.Platform.Core.Messaging.Impl/DogSab.Platform.Core.Messaging.Impl.csproj" />
     </Folder>
+    <Folder Name="/src/Platform/Core/Logging/" />
+    <Folder Name="/src/Platform/Core/Logging/Impl/">
+        <Project Path="src/Platform/Core/Logging/Impl/DogSab.Platform.Core.Logging.Impl/DogSab.Platform.Core.Logging.Impl.csproj" />
+    </Folder>
 </Solution>
