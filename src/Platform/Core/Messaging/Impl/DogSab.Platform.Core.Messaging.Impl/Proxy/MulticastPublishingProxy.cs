@@ -75,6 +75,13 @@ public sealed class MulticastPublisherProxy : DispatchProxy
             throw new InvalidOperationException("DispatchProxy invoked with a null target method.");
         }
 
+        if (targetMethod.ReturnType != typeof(void))
+        {
+            throw new InvalidOperationException(
+                $"Topic listener method '{targetMethod.Name}' must return void. " +
+                $"Message bus listener interfaces are event handlers and cannot return values.");
+        }
+
         var subscribers = _subscriberRegistry.GetLiveSubscribers(_topic);
 
         if (subscribers.Count == 0)
