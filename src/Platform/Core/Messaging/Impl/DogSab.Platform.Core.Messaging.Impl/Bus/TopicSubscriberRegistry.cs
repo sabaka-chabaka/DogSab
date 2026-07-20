@@ -113,4 +113,22 @@ public sealed class TopicSubscriberRegistry
             Unsubscribe(topic, listener);
         }
     }
+    
+    /// <summary>
+    /// Returns a snapshot of every topic this registry currently knows about
+    /// (i.e. that has had at least one subscriber at some point), together with
+    /// its current live subscriber count. Used for startup/runtime diagnostics only.
+    /// </summary>
+    /// <returns>A snapshot list of (topic, live subscriber count) pairs.</returns>
+    public IReadOnlyList<(ITopic Topic, int LiveSubscriberCount)> GetDiagnosticsSnapshot()
+    {
+        var result = new List<(ITopic, int)>();
+
+        foreach (var topic in _subscribersByTopic.Keys)
+        {
+            result.Add((topic, GetLiveSubscribers(topic).Count));
+        }
+
+        return result;
+    }
 }
