@@ -23,4 +23,10 @@
     <Folder Name="/src/Platform/Core/Logging/Impl/">
         <Project Path="src/Platform/Core/Logging/Impl/DogSab.Platform.Core.Logging.Impl/DogSab.Platform.Core.Logging.Impl.csproj" />
     </Folder>
+    <Folder Name="/src/Platform/Core/Progress/" />
+    <Folder Name="/src/Platform/Core/Progress/Impl/">
+    </Folder>
+    <Folder Name="/src/Platform/Core/Settings/" />
+    <Folder Name="/src/Platform/Core/Settings/Impl/">
+    </Folder>
 </Solution>
