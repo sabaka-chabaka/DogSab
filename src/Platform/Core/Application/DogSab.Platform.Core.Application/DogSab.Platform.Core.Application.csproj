@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <Version>1.0.0</Version>
+        <IsPackable>true</IsPackable>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Abstractions\DogSab.Platform.Core.Abstractions\DogSab.Platform.Core.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Impl\DogSab.Platform.Core.Impl\DogSab.Platform.Core.Impl.csproj" />
+      <ProjectReference Include="..\..\Logging\Impl\DogSab.Platform.Core.Logging.Impl\DogSab.Platform.Core.Logging.Impl.csproj" />
+      <ProjectReference Include="..\..\Messaging\Impl\DogSab.Platform.Core.Messaging.Impl\DogSab.Platform.Core.Messaging.Impl.csproj" />
+      <ProjectReference Include="..\..\Progress\Impl\DogSab.Platform.Core.Progress.Impl\DogSab.Platform.Core.Progress.Impl.csproj" />
+      <ProjectReference Include="..\..\Settings\Impl\DogSab.Platform.Core.Settings.Impl\DogSab.Platform.Core.Settings.Impl.csproj" />
+      <ProjectReference Include="..\..\Threading\Impl\DogSab.Platform.Core.Threading.Impl\DogSab.Platform.Core.Threading.Impl.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -31,4 +31,8 @@
     <Folder Name="/src/Platform/Core/Settings/Impl/">
         <Project Path="src/Platform/Core/Settings/Impl/DogSab.Platform.Core.Settings.Impl/DogSab.Platform.Core.Settings.Impl.csproj" />
     </Folder>
+
+    <Folder Name="/src/Platform/Core/Application/">
+        <Project Path="src/Platform/Core/Application/DogSab.Platform.Core.Application/DogSab.Platform.Core.Application.csproj" />
+    </Folder>
 </Solution>
