@@ -31,8 +31,18 @@
     <Folder Name="/src/Platform/Core/Settings/Impl/">
         <Project Path="src/Platform/Core/Settings/Impl/DogSab.Platform.Core.Settings.Impl/DogSab.Platform.Core.Settings.Impl.csproj" />
     </Folder>
-
     <Folder Name="/src/Platform/Core/Application/">
         <Project Path="src/Platform/Core/Application/DogSab.Platform.Core.Application/DogSab.Platform.Core.Application.csproj" />
+    </Folder>
+    
+    <Folder Name="/tests/">
+    </Folder>
+    <Folder Name="/tests/Platform/">
+    </Folder>
+    <Folder Name="/tests/Platform/Core/">
+    </Folder>
+
+    <Folder Name="/tests/Platform/Core/Testing/">
+        <Project Path="tests/Platform/Core/DogSab.Platform.Core.Testing/DogSab.Platform.Core.Testing.csproj" />
     </Folder>
 </Solution>
