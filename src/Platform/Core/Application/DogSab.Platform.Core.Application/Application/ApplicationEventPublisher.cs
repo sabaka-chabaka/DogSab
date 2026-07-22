@@ -26,7 +26,7 @@ public interface IApplicationLifecycleListener
 /// <see cref="IApplicationLifecycleListener"/> without depending directly on
 /// <see cref="DogSabApplication"/> or <see cref="ProjectLifecycle.ProjectSessionManager"/>.
 /// </summary>
-public sealed class ApplicationEventPublisher : IService
+public class ApplicationEventPublisher : IService
 {
     /// <summary>
     /// The topic application lifecycle events are published on. Delivered
@@ -54,7 +54,7 @@ public sealed class ApplicationEventPublisher : IService
     /// Publishes a lifecycle event to every current subscriber of <see cref="Topic"/>.
     /// </summary>
     /// <param name="lifecycleEvent">The lifecycle stage being transitioned to.</param>
-    public void Publish(ApplicationLifecycleEvent lifecycleEvent)
+    public virtual void Publish(ApplicationLifecycleEvent lifecycleEvent)
     {
         var args = new ApplicationEventArgs(lifecycleEvent);
         _messageBus.Publisher(Topic).OnLifecycleEvent(args);

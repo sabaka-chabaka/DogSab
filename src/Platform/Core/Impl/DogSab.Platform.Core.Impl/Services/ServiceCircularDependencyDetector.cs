@@ -5,7 +5,7 @@ namespace DogSab.Platform.Core.Impl.Services;
 /// so that a service whose constructor (directly or transitively) requests itself
 /// can be detected and reported instead of causing a stack overflow.
 /// </summary>
-public sealed class ServiceCircularDependencyDetector
+public class ServiceCircularDependencyDetector
 {
     /// <summary>Per-thread stack of service types currently under construction.</summary>
     private readonly ThreadLocal<Stack<Type>> _resolutionStack = new(() => new Stack<Type>());
@@ -18,7 +18,7 @@ public sealed class ServiceCircularDependencyDetector
     /// Thrown if <paramref name="serviceType"/> is already present on the current
     /// resolution stack, indicating a circular dependency.
     /// </exception>
-    public void Enter(Type serviceType)
+    public virtual void Enter(Type serviceType)
     {
         var stack = _resolutionStack.Value!;
         
@@ -36,7 +36,7 @@ public sealed class ServiceCircularDependencyDetector
     /// popping it off the resolution stack.
     /// </summary>
     /// <param name="serviceType">The service type that finished constructing.</param>
-    public void Exit(Type serviceType)
+    public virtual void Exit(Type serviceType)
     {
         var stack = _resolutionStack.Value!;
 

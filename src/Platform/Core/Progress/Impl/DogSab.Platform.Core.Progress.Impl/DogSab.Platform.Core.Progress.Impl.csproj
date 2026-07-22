@@ -15,4 +15,9 @@
         <ProjectReference Include="..\..\..\Logging\Impl\DogSab.Platform.Core.Logging.Impl\DogSab.Platform.Core.Logging.Impl.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>DogSab.Platform.Core.Testing</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
 </Project>

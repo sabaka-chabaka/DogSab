@@ -10,7 +10,7 @@ using DogSab.Platform.Core.Abstractions.Services;
 /// Holds cached singleton/scoped service instances for one scope
 /// (either the single application scope, or one scope per open project).
 /// </summary>
-internal sealed class ServiceScopeImpl
+internal class ServiceScopeImpl
 {
     /// <summary>The scope this instance cache belongs to.</summary>
     public ServiceScope Scope { get; }

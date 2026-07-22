@@ -9,7 +9,7 @@ namespace DogSab.Platform.Core.Impl.Components;
 /// A new instance of this manager is created for every opened project and
 /// discarded when that project is closed, along with all its components.
 /// </summary>
-public sealed class ProjectComponentManager : IComponentManager
+public class ProjectComponentManager : IComponentManager
 {
     /// <summary>Registered project-component descriptors keyed by their interface type.</summary>
     private readonly ConcurrentDictionary<Type, ComponentDescriptor> _descriptors = new();
@@ -128,7 +128,7 @@ public sealed class ProjectComponentManager : IComponentManager
     /// <see cref="IProjectComponent.DisposeComponent"/> on every initialized component,
     /// in reverse initialization order. Invoked once by the platform when the project closes.
     /// </summary>
-    public void DisposeAll()
+    public virtual void DisposeAll()
     {
         foreach (var instance in _instances.Values)
         {

@@ -30,11 +30,11 @@ public sealed class DogSabApplication
     private readonly ApplicationEventPublisher _eventPublisher;
 
     /// <summary>
-    /// Creates the application facade. Private — construction happens only
-    /// through <see cref="Initialize"/>, to guarantee at most one instance per process.
+    /// Creates the application facade. Internal — construction happens only
+    /// through <see cref="Initialize"/> or for testing.
     /// </summary>
     /// <param name="bootstrapResult">The completed bootstrap result to wrap.</param>
-    private DogSabApplication(BootstrapResult bootstrapResult)
+    internal DogSabApplication(BootstrapResult bootstrapResult)
     {
         _bootstrapResult = bootstrapResult;
         _eventPublisher = bootstrapResult.RootServiceContainer.GetService<ApplicationEventPublisher>();

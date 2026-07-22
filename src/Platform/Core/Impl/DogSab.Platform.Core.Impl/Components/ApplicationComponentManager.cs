@@ -9,7 +9,7 @@ namespace DogSab.Platform.Core.Impl.Components;
 /// A single instance of this manager exists for the lifetime of the process;
 /// components registered here are created once at startup and disposed on shutdown.
 /// </summary>
-public sealed class ApplicationComponentManager : IComponentManager
+public class ApplicationComponentManager : IComponentManager
 {
     /// <summary>Registered application-component descriptors keyed by their interface type.</summary>
     private readonly ConcurrentDictionary<Type, ComponentDescriptor> _descriptors = new();
@@ -116,7 +116,7 @@ public sealed class ApplicationComponentManager : IComponentManager
     /// initialization order, calling <see cref="IApplicationComponent.DisposeComponent"/> on each.
     /// Invoked once by the platform during process shutdown.
     /// </summary>
-    public void DisposeAll()
+    public virtual void DisposeAll()
     {
         foreach (var instance in _instances.Values)
         {

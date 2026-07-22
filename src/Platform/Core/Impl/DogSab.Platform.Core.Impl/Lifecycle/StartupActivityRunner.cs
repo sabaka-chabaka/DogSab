@@ -8,7 +8,7 @@ namespace DogSab.Platform.Core.Impl.Lifecycle;
 /// and runs them in ascending order of their declared <see cref="IStartupActivity.Order"/>,
 /// sequentially, on a background thread.
 /// </summary>
-public sealed class StartupActivityRunner
+public class StartupActivityRunner
 {
     /// <summary>Logger used to report progress and failures while running activities.</summary>
     private readonly ILogger _logger;

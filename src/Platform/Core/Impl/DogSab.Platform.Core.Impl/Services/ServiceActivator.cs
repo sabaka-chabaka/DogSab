@@ -6,7 +6,7 @@ namespace DogSab.Platform.Core.Impl.Services;
 /// Creates service instances via constructor injection, resolving each constructor
 /// parameter through the owning <see cref="IServiceContainer"/>.
 /// </summary>
-public sealed class ServiceActivator
+public class ServiceActivator
 {
     /// <summary>Detects and reports circular construction chains during activation.</summary>
     private readonly ServiceCircularDependencyDetector _circularDependencyDetector = new();
@@ -27,7 +27,7 @@ public sealed class ServiceActivator
     /// <param name="registration">The registration describing the type to construct.</param>
     /// <param name="container">The container used to resolve constructor parameters.</param>
     /// <returns>The newly constructed service instance.</returns>
-    public object CreateInstance(ServiceRegistration registration, IServiceContainer container)
+    public virtual object CreateInstance(ServiceRegistration registration, IServiceContainer container)
     {
         _circularDependencyDetector.Enter(registration.ServiceType);
 

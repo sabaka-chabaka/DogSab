@@ -22,7 +22,7 @@ namespace DogSab.Platform.Core.Messaging.Impl.Proxy;
 /// arguments. Configuration is therefore injected via <see cref="Configure"/>
 /// immediately after creation, before the proxy is ever handed to calling code.
 /// </remarks>
-public sealed class MulticastPublisherProxy : DispatchProxy
+public class MulticastPublisherProxy : DispatchProxy
 {
     /// <summary>The topic this proxy publishes to. Set via <see cref="Configure"/>.</summary>
     private ITopic _topic = null!;

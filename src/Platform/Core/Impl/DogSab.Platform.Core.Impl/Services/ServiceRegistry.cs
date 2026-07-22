@@ -9,7 +9,7 @@ namespace DogSab.Platform.Core.Impl.Services;
 /// Does not create or hold instances — that responsibility belongs to <see cref="ServiceActivator"/>
 /// and the scope-specific caches in <see cref="ServiceScopeImpl"/>.
 /// </summary>
-public sealed class ServiceRegistry
+public class ServiceRegistry
 {
     /// <summary>All known registrations, keyed by their public service interface type.</summary>
     private readonly ConcurrentDictionary<Type, ServiceRegistration> _registrations = new();
@@ -18,7 +18,7 @@ public sealed class ServiceRegistry
     /// Adds or replaces the registration for a service interface.
     /// </summary>
     /// <param name="registration">The registration descriptor to store.</param>
-    public void Add(ServiceRegistration registration)
+    public virtual void Add(ServiceRegistration registration)
     {
         _registrations[registration.ServiceType] = registration;
     }
@@ -29,7 +29,7 @@ public sealed class ServiceRegistry
     /// <param name="serviceType">The service interface type to look up.</param>
     /// <param name="registration">The found registration, if any.</param>
     /// <returns><c>true</c> if a registration exists; otherwise <c>false</c>.</returns>
-    public bool TryGet(Type serviceType, out ServiceRegistration registration)
+    public virtual bool TryGet(Type serviceType, out ServiceRegistration registration)
     {
         return _registrations.TryGetValue(serviceType, out registration);
     }
@@ -39,7 +39,7 @@ public sealed class ServiceRegistry
     /// </summary>
     /// <param name="serviceType">The service interface type to check.</param>
     /// <returns><c>true</c> if a registration exists; otherwise <c>false</c>.</returns>
-    public bool Contains(Type serviceType)
+    public virtual bool Contains(Type serviceType)
     {
         return _registrations.ContainsKey(serviceType);
     }

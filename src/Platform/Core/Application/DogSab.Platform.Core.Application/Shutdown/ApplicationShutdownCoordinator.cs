@@ -16,7 +16,7 @@ namespace DogSab.Platform.Core.Application.Shutdown;
 /// partially-failed shutdown should still release as many resources as possible
 /// rather than aborting the process in an undefined state.
 /// </summary>
-public sealed class ApplicationShutdownCoordinator
+public class ApplicationShutdownCoordinator
 {
      /// <summary>Closes every open project as the first step of shutdown.</summary>
     private readonly ProjectSessionManager _projectSessionManager;

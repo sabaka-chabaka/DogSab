@@ -12,7 +12,7 @@ namespace DogSab.Platform.Core.Impl.Disposables;
 /// When a parent is disposed through this registry, all its registered descendants
 /// are disposed automatically, deepest first.
 /// </summary>
-public sealed class DisposableRegistryImpl : IDisposableRegistry
+public class DisposableRegistryImpl : IDisposableRegistry
 {
     /// <summary>Logger used to report registration errors and disposal failures.</summary>
     private readonly ILogger _logger;
@@ -116,6 +116,18 @@ public sealed class DisposableRegistryImpl : IDisposableRegistry
         foreach (var node in subtreeDeepestFirst)
         {
             DisposeNode(node);
+        }
+    }
+
+    /// <summary>
+    /// Checks whether the given object is registered in the registry.
+    /// Internal for testing.
+    /// </summary>
+    internal bool IsRegistered(IDisposable target)
+    {
+        lock (_lock)
+        {
+            return _nodes.ContainsKey(target);
         }
     }
 

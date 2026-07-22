@@ -14,7 +14,7 @@ namespace DogSab.Platform.Core.Application.ProjectLifecycle;
 /// (delegating to the shared application root container for anything not
 /// registered at project scope), and its own settings store.
 /// </summary>
-public sealed class ProjectSessionManager
+public class ProjectSessionManager
 {
     /// <summary>Currently open sessions, keyed by their generated project ID.</summary>
     private readonly ConcurrentDictionary<Guid, ProjectSession> _openSessions = new();
@@ -48,7 +48,7 @@ public sealed class ProjectSessionManager
     /// Thrown if <paramref name="projectRootDirectory"/> does not exist, or if
     /// project component initialization fails.
     /// </exception>
-    public ProjectSession OpenProject(string projectRootDirectory)
+    public virtual ProjectSession OpenProject(string projectRootDirectory)
     {
         if (!Directory.Exists(projectRootDirectory))
         {
@@ -105,7 +105,7 @@ public sealed class ProjectSessionManager
     /// </summary>
     /// <param name="projectId">The ID of the session to close, as returned by <see cref="OpenProject"/>.</param>
     /// <returns><c>true</c> if a session with this ID was found and closed; otherwise <c>false</c>.</returns>
-    public bool CloseProject(Guid projectId)
+    public virtual bool CloseProject(Guid projectId)
     {
         if (!_openSessions.TryRemove(projectId, out var session))
         {
@@ -131,7 +131,7 @@ public sealed class ProjectSessionManager
     /// Closes every currently open project session. Used during application
     /// shutdown by <see cref="Shutdown.ApplicationShutdownCoordinator"/>.
     /// </summary>
-    public void CloseAllProjects()
+    public virtual void CloseAllProjects()
     {
         foreach (var projectId in new List<Guid>(_openSessions.Keys))
         {

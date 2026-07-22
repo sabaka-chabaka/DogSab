@@ -10,7 +10,7 @@ namespace DogSab.Platform.Core.Impl.Services;
 /// Containers can be chained via <see cref="Parent"/>: a project-scoped container falls
 /// back to its parent application-scoped container when a service is not registered locally.
 /// </summary>
-public sealed class ServiceContainerImpl : IServiceContainer
+public class ServiceContainerImpl : IServiceContainer
 {
     private readonly ServiceScope _scope;
     private readonly ServiceRegistry _registry;
@@ -100,7 +100,7 @@ public sealed class ServiceContainerImpl : IServiceContainer
     }
 
     /// <inheritdoc />
-    public object GetService(Type serviceType)
+    public virtual object GetService(Type serviceType)
     {
         if (_registry.TryGet(serviceType, out var registration))
         {
@@ -137,7 +137,7 @@ public sealed class ServiceContainerImpl : IServiceContainer
     /// <summary>
     /// Clears all cached singleton/scoped instances held by this container's own scope.
     /// </summary>
-    public void ClearCache()
+    public virtual void ClearCache()
     {
         _scopeCache.Clear();
     }
