@@ -12,6 +12,9 @@ public sealed class StartupActivityRunner
 {
     /// <summary>Logger used to report progress and failures while running activities.</summary>
     private readonly ILogger _logger;
+    
+    /// <summary>busy</summary>
+    private readonly LifecycleOrderResolver _orderResolver;
 
     /// <summary>Activities that have already completed successfully, in completion order.</summary>
     private readonly List<IStartupActivity> _completedActivities = new();
@@ -20,9 +23,10 @@ public sealed class StartupActivityRunner
     /// Creates a new startup activity runner.
     /// </summary>
     /// <param name="loggerFactory">Factory used to obtain a logger scoped to this runner.</param>
-    public StartupActivityRunner(ILoggerFactory loggerFactory)
+    public StartupActivityRunner(ILoggerFactory loggerFactory, LifecycleOrderResolver orderResolver)
     {
         _logger = loggerFactory.GetLogger(typeof(StartupActivityRunner));
+        _orderResolver = orderResolver;
     }
 
     /// <summary>Activities that have already completed successfully, in the order they finished.</summary>
@@ -38,11 +42,7 @@ public sealed class StartupActivityRunner
     /// <returns>A task that completes when all activities have finished or one has thrown.</returns>
     public async Task RunAllAsync(IEnumerable<IStartupActivity> activities, CancellationToken cancellationToken)
     {
-        var ordered = activities
-            .Select((activity, index) => (activity, index))
-            .OrderBy(pair => pair.activity.Order)
-            .ThenBy(pair => pair.index)
-            .Select(pair => pair.activity);
+        var ordered = _orderResolver.Resolve(activities, activity => activity.Order);
 
         foreach (var activity in ordered)
         {
