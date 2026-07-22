@@ -17,6 +17,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\..\src\Platform\Core\Abstractions\DogSab.Platform.Core.Abstractions\DogSab.Platform.Core.Abstractions.csproj" />
+        <ProjectReference Include="..\..\..\..\..\src\Platform\Core\Impl\DogSab.Platform.Core.Impl\DogSab.Platform.Core.Impl.csproj" />
         <ProjectReference Include="..\..\..\..\..\src\Platform\Core\Application\DogSab.Platform.Core.Application\DogSab.Platform.Core.Application.csproj" />
         <ProjectReference Include="..\..\..\..\..\src\Platform\Core\Messaging\Impl\DogSab.Platform.Core.Messaging.Impl\DogSab.Platform.Core.Messaging.Impl.csproj" />
         <ProjectReference Include="..\..\..\..\..\src\Platform\Core\Threading\Impl\DogSab.Platform.Core.Threading.Impl\DogSab.Platform.Core.Threading.Impl.csproj" />

@@ -12,14 +12,14 @@ namespace DogSab.Platform.Core.Progress.Impl.Tracking;
 public sealed class ActiveProgressTracker
 {
     /// <summary>Per-thread reference to the indicator of the operation currently executing on that thread.</summary>
-    private readonly ThreadLocal<IProgressIndicator?> _current = new(() => null);
+    private readonly AsyncLocal<IProgressIndicator?> _current = new();
 
     /// <summary>
     /// Sets the active indicator for the calling thread, to be observed by any
     /// code running on this thread until <see cref="Clear"/> is called.
     /// </summary>
     /// <param name="indicator">The indicator to associate with the calling thread.</param>
-    public void SetCurrent(IProgressIndicator indicator)
+    public void SetCurrent(IProgressIndicator? indicator)
     {
         _current.Value = indicator;
     }

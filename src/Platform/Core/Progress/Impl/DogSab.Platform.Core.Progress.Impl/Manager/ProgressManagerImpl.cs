@@ -26,6 +26,7 @@ public sealed class ProgressManagerImpl : IProgressManager
     public void RunWithProgress(string title, Action<IProgressIndicator> action, bool canCancel = true)
     {
         var indicator = CreateIndicator(title, canCancel);
+        var previous = _tracker.GetCurrent();
         
         _tracker.SetCurrent(indicator);
         try
@@ -34,7 +35,7 @@ public sealed class ProgressManagerImpl : IProgressManager
         }
         finally
         {
-            _tracker.Clear();
+            _tracker.SetCurrent(previous);
         }
     }
     
@@ -48,6 +49,7 @@ public sealed class ProgressManagerImpl : IProgressManager
     public async Task RunWithProgressAsync(string title, Func<IProgressIndicator, Task> action, bool canCancel = true)
     {
         var indicator = CreateIndicator(title, canCancel);
+        var previous = _tracker.GetCurrent();
 
         _tracker.SetCurrent(indicator);
         try
@@ -56,7 +58,7 @@ public sealed class ProgressManagerImpl : IProgressManager
         }
         finally
         {
-            _tracker.Clear();
+            _tracker.SetCurrent(previous);
         }
     }
 
