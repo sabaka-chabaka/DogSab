@@ -43,6 +43,6 @@
     </Folder>
 
     <Folder Name="/tests/Platform/Core/Testing/">
-        <Project Path="tests/Platform/Core/DogSab.Platform.Core.Testing/DogSab.Platform.Core.Testing.csproj" />
+        <Project Path="tests/Platform/Core/Testing/DogSab.Platform.Core.Testing/DogSab.Platform.Core.Testing.csproj" />
     </Folder>
 </Solution>
