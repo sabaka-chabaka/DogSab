@@ -3,7 +3,7 @@ using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.Core.Threading.Impl.Diagnostics;
 using DogSab.Platform.Core.Threading.Impl.ReadWrite;
 
-namespace DogSab.Platform.Core.Threading.Impl.Startuo;
+namespace DogSab.Platform.Core.Threading.Impl.Startup;
 
 /// <summary>
 /// Platform startup activity that optionally starts the <see cref="DeadlockDetector"/>
