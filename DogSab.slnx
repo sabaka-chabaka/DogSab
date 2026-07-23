@@ -3,6 +3,8 @@
     </Folder>
     <Folder Name="/src/Platform/">
     </Folder>
+    <Folder Name="/src/Platform/Extensibility/">
+    </Folder>
     <Folder Name="/src/Platform/Core/">
     </Folder>
     <Folder Name="/src/Platform/Core/Abstractions/">
@@ -33,6 +35,9 @@
     </Folder>
     <Folder Name="/src/Platform/Core/Application/">
         <Project Path="src/Platform/Core/Application/DogSab.Platform.Core.Application/DogSab.Platform.Core.Application.csproj" />
+    </Folder>
+    <Folder Name="/src/Platform/Extensibility/Abstractions/">
+        <Project Path="src/Platform/Extensibility/Abstractions/DogSab.Platform.Extensibility.Abstractions/DogSab.Platform.Extensibility.Abstractions.csproj" />
     </Folder>
     
     <Folder Name="/tests/">
