@@ -4,6 +4,7 @@
     <Folder Name="/src/Platform/">
     </Folder>
     <Folder Name="/src/Platform/Extensibility/">
+        <Project Path="src/Platform/Extensibility/DogSab.Platform.Extensibility/DogSab.Platform.Extensibility.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Core/">
     </Folder>
