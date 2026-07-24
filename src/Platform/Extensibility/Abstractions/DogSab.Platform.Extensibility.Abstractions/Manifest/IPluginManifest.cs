@@ -37,6 +37,13 @@ public interface IPluginManifest
 
     /// <summary>Every extension point registration this plugin declares.</summary>
     IReadOnlyList<ExtensionDeclaration> Extensions { get; }
+    
+    /// <summary>
+    /// The permissions this plugin declares it needs. Currently informational
+    /// only — no sandboxing enforcement reads this yet — but recorded now so
+    /// existing plugin manifests remain valid once enforcement is added.
+    /// </summary>
+    IReadOnlyList<Sandbox.PluginPermission> RequestedPermissions { get; }
 
     /// <summary>
     /// The file name, relative to the plugin's own directory, of the main
