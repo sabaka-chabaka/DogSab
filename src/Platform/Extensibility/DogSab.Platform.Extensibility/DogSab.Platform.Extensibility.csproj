@@ -12,6 +12,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Core\Abstractions\DogSab.Platform.Core.Abstractions\DogSab.Platform.Core.Abstractions.csproj" />
       <ProjectReference Include="..\Abstractions\DogSab.Platform.Extensibility.Abstractions\DogSab.Platform.Extensibility.Abstractions.csproj" />
     </ItemGroup>
 
