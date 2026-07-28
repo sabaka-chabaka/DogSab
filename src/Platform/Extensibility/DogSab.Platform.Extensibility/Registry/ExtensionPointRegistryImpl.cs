@@ -202,4 +202,38 @@ public sealed class ExtensionPointRegistryImpl : IExtensionPointRegistry
                 "Attempted to access a project-scoped extension point, but no project is currently active. " +
                 "Ensure this code runs within an ICurrentProjectAccessor.EnterProjectScope(...) block.");
     }
+    
+    /// <summary>
+    /// A single row of the extension point registry's diagnostics snapshot,
+    /// summarizing one declared extension point without exposing the internal
+    /// <see cref="ExtensionPointEntry"/> storage itself.
+    /// </summary>
+    internal readonly record struct ExtensionPointDiagnosticsRow(
+        string ExtensionPointId,
+        ExtensionPointArea Area,
+        int ApplicationScopeImplementationCount);
+
+    /// <summary>
+    /// Gets a diagnostic snapshot of every currently declared extension point,
+    /// summarizing each as its ID, area, and (for application-scoped points) how
+    /// many implementations are registered. Project-scoped points report 0 here
+    /// regardless of actual per-project registrations, since there is no single
+    /// "current project" during a global diagnostics pass.
+    /// </summary>
+    /// <returns>A read-only list of summarized extension point rows.</returns>
+    internal IReadOnlyList<ExtensionPointDiagnosticsRow> GetDiagnosticsSnapshot()
+    {
+        var result = new List<ExtensionPointDiagnosticsRow>();
+
+        foreach (var (id, entry) in _entriesById)
+        {
+            var applicationCount = entry.Area == ExtensionPointArea.Application
+                ? entry.GetAll(null).Count
+                : 0;
+
+            result.Add(new ExtensionPointDiagnosticsRow(id, entry.Area, applicationCount));
+        }
+
+        return result;
+    }
 }
