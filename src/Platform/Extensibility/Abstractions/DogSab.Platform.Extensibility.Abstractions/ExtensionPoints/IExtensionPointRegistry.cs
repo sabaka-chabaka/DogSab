@@ -62,4 +62,33 @@ public interface IExtensionPointRegistry
     /// <param name="extensionPointId">The string identifier of the extension point to check.</param>
     /// <returns><c>true</c> if declared; otherwise <c>false</c>.</returns>
     bool IsExtensionPointDeclared(string extensionPointId);
+    
+    /// <summary>
+    /// Registers a single implementation instance against an already-declared
+    /// extension point, looked up by its string ID rather than a compile-time
+    /// <see cref="ExtensionPointName{TContract}"/> reference. Used by the
+    /// plugin loader, which only knows the target extension point's ID and
+    /// contract type at runtime (from a plugin manifest and reflection),
+    /// never at compile time. Prefer <see cref="RegisterExtension{TContract}"/>
+    /// wherever a compile-time <see cref="ExtensionPointName{TContract}"/> is
+    /// available, since it is type-checked by the compiler; this method only
+    /// verifies the contract at runtime.
+    /// </summary>
+    /// <param name="extensionPointId">The string ID of the extension point to register against.</param>
+    /// <param name="implementation">The implementation instance to register.</param>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown if no extension point is declared under <paramref name="extensionPointId"/>,
+    /// or if <paramref name="implementation"/> does not implement that extension
+    /// point's declared contract type.
+    /// </exception>
+    void RegisterExtensionUntyped(string extensionPointId, object implementation);
+
+    /// <summary>
+    /// Removes a previously registered implementation from an extension point,
+    /// looked up by its string ID. See <see cref="RegisterExtensionUntyped"/>
+    /// for when this untyped path is appropriate to use.
+    /// </summary>
+    /// <param name="extensionPointId">The string ID of the extension point to unregister from.</param>
+    /// <param name="implementation">The implementation instance to remove.</param>
+    void UnregisterExtensionUntyped(string extensionPointId, object implementation);
 }

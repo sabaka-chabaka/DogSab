@@ -236,4 +236,56 @@ public sealed class ExtensionPointRegistryImpl : IExtensionPointRegistry
 
         return result;
     }
+    
+    /// <inheritdoc />
+    public void RegisterExtensionUntyped(string extensionPointId, object implementation)
+    {
+        var entry = GetDeclaredEntryUntyped(extensionPointId);
+
+        if (!entry.ContractType.IsInstanceOfType(implementation))
+        {
+            throw new InvalidOperationException(
+                $"Cannot register instance of type '{implementation.GetType().FullName}' against extension point " +
+                $"'{extensionPointId}': it does not implement the required contract '{entry.ContractType.FullName}'.");
+        }
+
+        var scopeKey = ResolveScopeKey(entry.Area);
+        entry.Add(scopeKey, implementation);
+    }
+
+    /// <inheritdoc />
+    public void UnregisterExtensionUntyped(string extensionPointId, object implementation)
+    {
+        var entry = GetDeclaredEntryUntyped(extensionPointId);
+        var scopeKey = ResolveScopeKey(entry.Area);
+
+        entry.Remove(scopeKey, implementation);
+    }
+
+    /// <summary>
+    /// Looks up a declared entry by its string ID alone, without verifying
+    /// against any particular compile-time contract type. Used by the untyped
+    /// registration path, where the contract type is only known at runtime.
+    /// </summary>
+    /// <param name="extensionPointId">The extension point ID to look up.</param>
+    /// <returns>The declared entry.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if no entry is declared under this ID.</exception>
+    private ExtensionPointEntry GetDeclaredEntryUntyped(string extensionPointId)
+    {
+        if (!_entriesById.TryGetValue(extensionPointId, out var entry))
+        {
+            throw new InvalidOperationException(
+                $"Extension point '{extensionPointId}' has not been declared. " +
+                $"Call {nameof(RegisterExtensionPoint)} before registering or querying extensions against it.");
+        }
+
+        return entry;
+    }
+    
+    /// <summary>
+    /// Returns the declared contract type for an extension point by its string ID.
+    /// </summary>
+    /// <param name="extensionPointId">The extension point ID to look up.</param>
+    /// <returns>The declared contract type.</returns>
+    internal Type GetContractType(string extensionPointId) => GetDeclaredEntryUntyped(extensionPointId).ContractType;
 }
