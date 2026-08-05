@@ -68,7 +68,7 @@ public static class VirtualFilePathParser
     /// <returns>The combined full virtual path.</returns>
     public static string Combine(string scheme, string path)
     {
-        return $"{scheme}{SchemeSeparator}{path.TrimStart('/')}";
+        return $"{scheme}{SchemeSeparator}{path}";
     }
 }
 
