@@ -11,4 +11,9 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Core\Abstractions\DogSab.Platform.Core.Abstractions\DogSab.Platform.Core.Abstractions.csproj" />
+      <ProjectReference Include="..\..\..\Core\Messaging\Impl\DogSab.Platform.Core.Messaging.Impl\DogSab.Platform.Core.Messaging.Impl.csproj" />
+    </ItemGroup>
+
 </Project>
