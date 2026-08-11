@@ -89,4 +89,4 @@ jobs:
           echo "### NuGet Spy Analysis Results" >> $GITHUB_STEP_SUMMARY
           echo '```' >> \$GITHUB_STEP_SUMMARY
           NO_COLOR=1 nuget-spy >> \$GITHUB_STEP_SUMMARY
-          echo '```' >> 
+          echo '```' >> $GITHUB_STEP_SUMMARY
