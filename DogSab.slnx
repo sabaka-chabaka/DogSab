@@ -14,6 +14,7 @@
         <Project Path="src/Platform/Vfs/Abstractions/DogSab.Platform.Vfs.Abstractions/DogSab.Platform.Vfs.Abstractions.csproj" />
     </Folder>
     <Folder Name="/src/Platform/ProjectModel/">
+        <Project Path="src/Platform/ProjectModel/DogSab.Platform.ProjectModel/DogSab.Platform.ProjectModel.csproj" />
     </Folder>
     <Folder Name="/src/Platform/ProjectModel/Abstractions/">
         <Project Path="src/Platform/ProjectModel/Abstractions/DogSab.Platform.ProjectModel.Abstractions/DogSab.Platform.ProjectModel.Abstractions.csproj" />
