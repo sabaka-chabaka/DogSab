@@ -1,4 +1,5 @@
 using System.Xml.Serialization;
+using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.ProjectModel.Abstractions.Module;
 using DogSab.Platform.ProjectModel.Abstractions.Persistence;
 using DogSab.Platform.ProjectModel.Abstractions.Project;
@@ -8,30 +9,25 @@ using DogSab.Platform.ProjectModel.Module;
 using DogSab.Platform.ProjectModel.Project;
 using DogSab.Platform.ProjectModel.Roots;
 using DogSab.Platform.ProjectModel.Solution;
+using DogSab.Platform.Vfs.Abstractions.Exceptions;
 using DogSab.Platform.Vfs.FileSystem;
 
 namespace DogSab.Platform.ProjectModel.Persistence;
 
-/// <summary>
-/// Default implementation of <see cref="IProjectModelPersistence"/>, storing
-/// the solution structure as XML. Serializes only structural references
-/// (module IDs for dependencies, virtual paths for content roots) rather than
-/// the live <see cref="Abstractions.Module.IModule"/> object graph directly,
-/// since the live objects hold references to <see cref="Vfs.Abstractions.VirtualFile.IVirtualFile"/>
-/// instances that are not themselves meant to be serialized — they are
-/// re-resolved from the stored paths on load, through the platform's VFS router.
-/// </summary>
 public sealed class XmlProjectModelPersistence : IProjectModelPersistence
 {
     private readonly VirtualFileSystemRouter _vfsRouter;
+    private readonly ILogger _logger;
 
     /// <summary>
     /// Creates a new XML-based project model persistence provider.
     /// </summary>
     /// <param name="vfsRouter">Router used to re-resolve stored virtual paths back into <see cref="Vfs.Abstractions.VirtualFile.IVirtualFile"/> instances on load.</param>
-    public XmlProjectModelPersistence(VirtualFileSystemRouter vfsRouter)
+    /// <param name="loggerFactory">Factory used to obtain a logger for reporting per-module load failures without aborting the whole solution.</param>
+    public XmlProjectModelPersistence(VirtualFileSystemRouter vfsRouter, ILoggerFactory loggerFactory)
     {
         _vfsRouter = vfsRouter;
+        _logger = loggerFactory.GetLogger(typeof(XmlProjectModelPersistence));
     }
 
     /// <inheritdoc />
@@ -45,8 +41,84 @@ public sealed class XmlProjectModelPersistence : IProjectModelPersistence
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        var projects = xmlModel.Projects.Select(MapProject).ToList();
+        var projects = xmlModel.Projects
+            .Select(p => TryMapProject(p, solutionFilePath))
+            .Where(p => p is not null)
+            .Select(p => p!)
+            .ToList();
+
         return new SolutionImpl(new SolutionId(xmlModel.Id), xmlModel.DisplayName, projects);
+    }
+
+    /// <summary>
+    /// Attempts to map a project's XML entry to a live <see cref="IProject"/>.
+    /// If any of the project's modules fail to map (e.g. a stored content
+    /// root path no longer exists on disk), that module is skipped with a
+    /// logged warning rather than aborting the entire solution load; if the
+    /// whole project fails unexpectedly, the project itself is skipped and
+    /// <c>null</c> is returned, so one broken project does not prevent the
+    /// rest of the solution from loading.
+    /// </summary>
+    private IProject? TryMapProject(ProjectXmlModel xml, string solutionFilePath)
+    {
+        try
+        {
+            var modules = xml.Modules
+                .Select(m => TryMapModule(m, xml.DisplayName))
+                .Where(m => m is not null)
+                .Select(m => m!)
+                .ToList();
+
+            return new ProjectImpl(new ProjectId(xml.Id), xml.DisplayName, modules);
+        }
+        catch (Exception ex)
+        {
+            _logger.Error(
+                "Failed to load project '{0}' from solution '{1}'; skipping it.",
+                ex,
+                xml.DisplayName,
+                solutionFilePath);
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Attempts to map a module's XML entry to a live <see cref="IModule"/>.
+    /// If a content root's stored path no longer resolves to an existing
+    /// virtual file, the whole module is skipped with a logged warning,
+    /// since a module missing its content is not meaningfully usable, but
+    /// this does not prevent the rest of the project's modules from loading.
+    /// </summary>
+    private IModule? TryMapModule(ModuleXmlModel xml, string projectDisplayName)
+    {
+        try
+        {
+            var contentRoots = xml.ContentRoots.Select(MapContentRoot).ToList();
+            var dependencies = xml.Dependencies
+                .Select(d => new ModuleDependency(new ModuleId(d.ModuleId), d.IsExported))
+                .ToList();
+
+            return new ModuleImpl(new ModuleId(xml.Id), xml.DisplayName, contentRoots, dependencies);
+        }
+        catch (VirtualFileNotFoundException ex)
+        {
+            _logger.Warn(
+                "Module '{0}' in project '{1}' references a content root that no longer exists ('{2}'); skipping this module.",
+                xml.DisplayName,
+                projectDisplayName,
+                ex.Path);
+            return null;
+        }
+    }
+
+    private ContentRootImpl MapContentRoot(ContentRootXmlModel xml)
+    {
+        var rootDirectory = _vfsRouter.Require(xml.RootDirectoryPath);
+        var sourceFolders = xml.SourceFolders
+            .Select(sf => new SourceFolderImpl(_vfsRouter.Require(sf.DirectoryPath), sf.Type))
+            .ToList();
+
+        return new ContentRootImpl(rootDirectory, sourceFolders);
     }
 
     /// <inheritdoc />
@@ -70,32 +142,6 @@ public sealed class XmlProjectModelPersistence : IProjectModelPersistence
         }
 
         File.Move(tempPath, solutionFilePath, overwrite: true);
-    }
-
-    private IProject MapProject(ProjectXmlModel xml)
-    {
-        var modules = xml.Modules.Select(MapModule).ToList();
-        return new ProjectImpl(new ProjectId(xml.Id), xml.DisplayName, modules);
-    }
-
-    private IModule MapModule(ModuleXmlModel xml)
-    {
-        var contentRoots = xml.ContentRoots.Select(MapContentRoot).ToList();
-        var dependencies = xml.Dependencies
-            .Select(d => new ModuleDependency(new ModuleId(d.ModuleId), d.IsExported))
-            .ToList();
-
-        return new ModuleImpl(new ModuleId(xml.Id), xml.DisplayName, contentRoots, dependencies);
-    }
-
-    private ContentRootImpl MapContentRoot(ContentRootXmlModel xml)
-    {
-        var rootDirectory = _vfsRouter.Require(xml.RootDirectoryPath);
-        var sourceFolders = xml.SourceFolders
-            .Select(sf => new SourceFolderImpl(_vfsRouter.Require(sf.DirectoryPath), sf.Type))
-            .ToList();
-
-        return new ContentRootImpl(rootDirectory, sourceFolders);
     }
 
     private static ProjectXmlModel MapProjectToXml(IProject project) => new()
@@ -124,8 +170,7 @@ public sealed class XmlProjectModelPersistence : IProjectModelPersistence
     };
 }
 
-// --- Raw XML DTOs, mirroring the pattern already used for plugin manifest JSON DTOs ---
-
+// DTOs unchanged — same as before
 internal sealed class SolutionXmlModel
 {
     public Guid Id { get; set; }

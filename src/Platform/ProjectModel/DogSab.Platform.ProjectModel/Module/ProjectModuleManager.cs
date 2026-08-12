@@ -8,66 +8,68 @@ using DogSab.Platform.ProjectModel.Solution;
 
 namespace DogSab.Platform.ProjectModel.Module;
 
-/// <summary>
-/// Holds the currently loaded solution and is the single point of mutation
-/// for the project model: every add/remove operation replaces the held
-/// <see cref="ISolution"/> reference with a new immutable instance (via
-/// <see cref="SolutionImpl.WithProject"/>/<see cref="ProjectImpl.WithModule"/>)
-/// and publishes the corresponding <see cref="IProjectModelListener"/>
-/// notification on <see cref="ProjectModelTopics.MODEL_CHANGED"/>. Platform
-/// code should mutate the project model only through this manager, never by
-/// constructing a new <see cref="SolutionImpl"/> directly, so every
-/// structural change is reliably observed by subscribers.
-/// </summary>
 public sealed class ProjectModelManager
 {
     private readonly IMessageBus _messageBus;
     private ISolution _currentSolution;
 
-    /// <summary>
-    /// Creates a new project model manager holding an initial solution.
-    /// </summary>
-    /// <param name="initialSolution">The solution to start with, typically freshly loaded via <see cref="Persistence.XmlProjectModelPersistence"/>.</param>
-    /// <param name="messageBus">The message bus to publish model change notifications on.</param>
     public ProjectModelManager(ISolution initialSolution, IMessageBus messageBus)
     {
         _currentSolution = initialSolution;
         _messageBus = messageBus;
     }
 
-    /// <summary>The currently held solution structure.</summary>
     public ISolution CurrentSolution => _currentSolution;
 
-    /// <summary>
-    /// Adds a module to a project, replacing the held solution with an
-    /// updated immutable copy and notifying subscribers.
-    /// </summary>
-    /// <param name="projectId">The project to add the module to.</param>
-    /// <param name="module">The module to add.</param>
     public void AddModule(ProjectId projectId, IModule module)
     {
-        var project = (ProjectImpl)_currentSolution.FindProject(projectId)!;
-        var updatedProject = project.WithModule(module);
+        var solution = RequireOwnSolution();
+        var project = RequireOwnProject(solution, projectId);
 
-        _currentSolution = ((SolutionImpl)_currentSolution).WithProject(updatedProject);
+        var updatedProject = project.WithModule(module);
+        _currentSolution = solution.WithProject(updatedProject);
 
         _messageBus.Publisher(ProjectModelTopics.MODEL_CHANGED).ModuleAdded(updatedProject, module);
     }
 
-    /// <summary>
-    /// Removes a module from a project, replacing the held solution with an
-    /// updated immutable copy and notifying subscribers before the removal takes effect.
-    /// </summary>
-    /// <param name="projectId">The project to remove the module from.</param>
-    /// <param name="moduleId">The module to remove.</param>
     public void RemoveModule(ProjectId projectId, ModuleId moduleId)
     {
-        var project = (ProjectImpl)_currentSolution.FindProject(projectId)!;
-        var module = project.FindModule(moduleId)!;
+        var solution = RequireOwnSolution();
+        var project = RequireOwnProject(solution, projectId);
+
+        var module = project.FindModule(moduleId)
+            ?? throw new InvalidOperationException($"Module '{moduleId}' does not exist in project '{projectId}'.");
 
         _messageBus.Publisher(ProjectModelTopics.MODEL_CHANGED).ModuleRemoving(project, module);
 
         var updatedProject = project.WithoutModule(moduleId);
-        _currentSolution = ((SolutionImpl)_currentSolution).WithProject(updatedProject);
+        _currentSolution = solution.WithProject(updatedProject);
+    }
+
+    /// <summary>
+    /// Verifies the currently held solution is a <see cref="SolutionImpl"/>,
+    /// as required to call its <c>WithProject</c> mutation-producing method.
+    /// </summary>
+    private SolutionImpl RequireOwnSolution()
+    {
+        return _currentSolution as SolutionImpl
+            ?? throw new InvalidOperationException(
+                $"{nameof(ProjectModelManager)} requires the held solution to be a {nameof(SolutionImpl)}, " +
+                $"but it is a '{_currentSolution.GetType().FullName}'.");
+    }
+
+    /// <summary>
+    /// Looks up a project by ID and verifies it is a <see cref="ProjectImpl"/>,
+    /// as required to call its <c>WithModule</c>/<c>WithoutModule</c> methods.
+    /// </summary>
+    private static ProjectImpl RequireOwnProject(ISolution solution, ProjectId projectId)
+    {
+        var project = solution.FindProject(projectId)
+            ?? throw new InvalidOperationException($"Project '{projectId}' does not exist in the current solution.");
+
+        return project as ProjectImpl
+            ?? throw new InvalidOperationException(
+                $"{nameof(ProjectModelManager)} requires projects to be {nameof(ProjectImpl)}, " +
+                $"but project '{projectId}' is a '{project.GetType().FullName}'.");
     }
 }
