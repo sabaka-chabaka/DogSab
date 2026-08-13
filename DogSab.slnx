@@ -19,6 +19,12 @@
     <Folder Name="/src/Platform/ProjectModel/Abstractions/">
         <Project Path="src/Platform/ProjectModel/Abstractions/DogSab.Platform.ProjectModel.Abstractions/DogSab.Platform.ProjectModel.Abstractions.csproj" />
     </Folder>
+    <Folder Name="/src/Platform/Indexing/">
+        <Project Path="src/Platform/Indexing/DogSab.Platform.Indexing/DogSab.Platform.Indexing.csproj" />
+    </Folder>
+    <Folder Name="/src/Platform/Indexing/Abstractions/">
+        <Project Path="src/Platform/Indexing/Abstractions/DogSab.Platform.Indexing.Abstractions/DogSab.Platform.Indexing.Abstractions.csproj" />
+    </Folder>
     <Folder Name="/src/Platform/Core/">
     </Folder>
     <Folder Name="/src/Platform/Core/Abstractions/">
