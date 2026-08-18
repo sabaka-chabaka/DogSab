@@ -81,12 +81,19 @@ public sealed class DumbServiceImpl : IDumbService
             signalTask = _smartModeSignal.Task;
         }
 
-        await using var registration = cancellationToken.Register(static state =>
+        if (!cancellationToken.CanBeCanceled)
         {
-            ((TaskCompletionSource)state!).TrySetCanceled();
-        }, _smartModeSignal);
+            await signalTask.ConfigureAwait(false);
+            return;
+        }
 
-        await signalTask.ConfigureAwait(false);
+        var cancellationTask = Task.Delay(System.Threading.Timeout.InfiniteTimeSpan, cancellationToken);
+        var completedTask = await Task.WhenAny(signalTask, cancellationTask).ConfigureAwait(false);
+
+        if (completedTask == cancellationTask)
+        {
+            await cancellationTask.ConfigureAwait(false);
+        }
     }
 
     /// <inheritdoc />

@@ -58,6 +58,25 @@ public sealed class IndexRegistry
                throw new InvalidOperationException($"Index '{indexId}' was registered with a different (TKey, TValue) pair than requested " +
                 $"({typeof(TKey).Name}, {typeof(TValue).Name}); actual registered type is '{raw.GetType().FullName}'.");
     }
+    
+    /// <summary>
+    /// Resolves the untyped extension registered for an index. Used by
+    /// <see cref="Building.IndexBuildWorker"/>, which needs to call
+    /// <see cref="IIndexExtension.IndexUntyped"/> without knowing the
+    /// extension's specific (TKey, TValue).
+    /// </summary>
+    /// <param name="indexId">The index to look up.</param>
+    /// <returns>The registered extension's untyped view.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if no extension is registered under this ID.</exception>
+    internal IIndexExtension GetExtensionUntyped(IndexId indexId)
+    {
+        if (!_extensionsById.TryGetValue(indexId, out var raw))
+        {
+            throw new InvalidOperationException($"No index extension registered under id '{indexId}'.");
+        }
+
+        return (IIndexExtension)raw;
+    }
 
     /// <summary>
     /// Returns a typed, queryable view over an index's storage.
