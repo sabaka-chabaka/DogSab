@@ -25,10 +25,13 @@
         <Project Path="src/Platform/Ui/Shell/DogSab.Platform.Ui.Shell/DogSab.Platform.Ui.Shell.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Ui/Themes/">
+        <Project Path="src/Platform/Ui/Themes/DogSab.Platform.Ui.Themes/DogSab.Platform.Ui.Themes.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Ui/Progress/">
+        <Project Path="src/Platform/Ui/Progress/DogSab.Platoform.Ui.Progress/DogSab.Platoform.Ui.Progress.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Ui/Notifications/">
+        <Project Path="src/Platform/Ui/Notifications/DogSab.Platform.Ui.Notifications/DogSab.Platform.Ui.Notifications.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Ui/ToolWindows/">
         <Project Path="src/Platform/Ui/ToolWindows/DogSab.Platform.Ui.ToolWindows/DogSab.Platform.Ui.ToolWindows.csproj" />
