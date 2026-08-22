@@ -21,10 +21,17 @@
     </Folder>
     <Folder Name="/src/Platform/Ui/">
     </Folder>
+    <Folder Name="/src/Platform/Ui/Shell/">
+    </Folder>
     <Folder Name="/src/Platform/Ui/ToolWindows/">
     </Folder>
     <Folder Name="/src/Platform/Ui/ToolWindows/Abstractions/">
         <Project Path="src/Platform/Ui/ToolWindows/Abstractions/DogSab.Platform.Ui.ToolWindows.Abstractions/DogSab.Platform.Ui.ToolWindows.Abstractions.csproj" />
+    </Folder>
+    <Folder Name="/src/Platform/Ui/Actions/">
+    </Folder>
+    <Folder Name="/src/Platform/Ui/Actions/Abstractions/">
+        <Project Path="src/Platform/Ui/Actions/Abstractions/DogSab.Platform.Ui.Actions.Abstractions/DogSab.Platform.Ui.Actions.Abstractions.csproj" />
     </Folder>
     <Folder Name="/src/Platform/ProjectModel/">
         <Project Path="src/Platform/ProjectModel/DogSab.Platform.ProjectModel/DogSab.Platform.ProjectModel.csproj" />
