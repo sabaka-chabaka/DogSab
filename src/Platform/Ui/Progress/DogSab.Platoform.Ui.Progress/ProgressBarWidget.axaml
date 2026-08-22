@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DogSab.Platform.Ui.Progress.ProgressBarWidget"
+             Width="200" Height="20">
+    <Grid ColumnDefinitions="Auto,*">
+        <TextBlock x:Name="ProgressText" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,6,0" FontSize="11" />
+        <ProgressBar x:Name="Bar" Grid.Column="1" Height="14" />
+    </Grid>
+</UserControl>
