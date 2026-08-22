@@ -24,6 +24,12 @@
     <Folder Name="/src/Platform/Ui/Shell/">
         <Project Path="src/Platform/Ui/Shell/DogSab.Platform.Ui.Shell/DogSab.Platform.Ui.Shell.csproj" />
     </Folder>
+    <Folder Name="/src/Platform/Ui/Themes/">
+    </Folder>
+    <Folder Name="/src/Platform/Ui/Progress/">
+    </Folder>
+    <Folder Name="/src/Platform/Ui/Notifications/">
+    </Folder>
     <Folder Name="/src/Platform/Ui/ToolWindows/">
         <Project Path="src/Platform/Ui/ToolWindows/DogSab.Platform.Ui.ToolWindows/DogSab.Platform.Ui.ToolWindows.csproj" />
     </Folder>
