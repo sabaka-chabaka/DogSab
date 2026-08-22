@@ -19,6 +19,13 @@
     <Folder Name="/src/Platform/Psi/Abstractions/">
         <Project Path="src/Platform/Psi/Abstractions/DogSab.Platform.Psi.Abstractions/DogSab.Platform.Psi.Abstractions.csproj" />
     </Folder>
+    <Folder Name="/src/Platform/Ui/">
+    </Folder>
+    <Folder Name="/src/Platform/Ui/ToolWindows/">
+    </Folder>
+    <Folder Name="/src/Platform/Ui/ToolWindows/Abstractions/">
+        <Project Path="src/Platform/Ui/ToolWindows/Abstractions/DogSab.Platform.Ui.ToolWindows.Abstractions/DogSab.Platform.Ui.ToolWindows.Abstractions.csproj" />
+    </Folder>
     <Folder Name="/src/Platform/ProjectModel/">
         <Project Path="src/Platform/ProjectModel/DogSab.Platform.ProjectModel/DogSab.Platform.ProjectModel.csproj" />
     </Folder>
