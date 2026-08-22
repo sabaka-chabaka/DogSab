@@ -11,4 +11,8 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\ToolWindows\DogSab.Platform.Ui.ToolWindows\DogSab.Platform.Ui.ToolWindows.csproj" />
+    </ItemGroup>
+
 </Project>
