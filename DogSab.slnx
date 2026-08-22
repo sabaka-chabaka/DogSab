@@ -22,13 +22,16 @@
     <Folder Name="/src/Platform/Ui/">
     </Folder>
     <Folder Name="/src/Platform/Ui/Shell/">
+        <Project Path="src/Platform/Ui/Shell/DogSab.Platform.Ui.Shell/DogSab.Platform.Ui.Shell.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Ui/ToolWindows/">
+        <Project Path="src/Platform/Ui/ToolWindows/DogSab.Platform.Ui.ToolWindows/DogSab.Platform.Ui.ToolWindows.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Ui/ToolWindows/Abstractions/">
         <Project Path="src/Platform/Ui/ToolWindows/Abstractions/DogSab.Platform.Ui.ToolWindows.Abstractions/DogSab.Platform.Ui.ToolWindows.Abstractions.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Ui/Actions/">
+        <Project Path="src/Platform/Ui/Actions/DogSab.Platform.Ui.Actions/DogSab.Platform.Ui.Actions.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Ui/Actions/Abstractions/">
         <Project Path="src/Platform/Ui/Actions/Abstractions/DogSab.Platform.Ui.Actions.Abstractions/DogSab.Platform.Ui.Actions.Abstractions.csproj" />
