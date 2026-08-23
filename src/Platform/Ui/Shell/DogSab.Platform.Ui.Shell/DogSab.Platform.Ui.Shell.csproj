@@ -12,7 +12,13 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\ProjectModel\Abstractions\DogSab.Platform.ProjectModel.Abstractions\DogSab.Platform.ProjectModel.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Actions\DogSab.Platform.Ui.Actions\DogSab.Platform.Ui.Actions.csproj" />
       <ProjectReference Include="..\..\ToolWindows\DogSab.Platform.Ui.ToolWindows\DogSab.Platform.Ui.ToolWindows.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Avalonia" Version="12.1.0" />
     </ItemGroup>
 
 </Project>

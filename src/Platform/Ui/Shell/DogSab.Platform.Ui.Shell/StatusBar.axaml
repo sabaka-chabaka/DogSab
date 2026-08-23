@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DogSab.Platform.Ui.Shell.StatusBar"
+             Height="24">
+    <Grid ColumnDefinitions="*, Auto">
+        <TextBlock x:Name="StatusText" Grid.Column="0" VerticalAlignment="Center" Margin="8,0" />
+        <StackPanel x:Name="RightItemsPanel" Grid.Column="1" Orientation="Horizontal" />
+    </Grid>
+</UserControl>

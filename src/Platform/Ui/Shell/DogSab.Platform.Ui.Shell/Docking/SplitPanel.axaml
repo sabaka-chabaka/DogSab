@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DogSab.Platform.Ui.Shell.Docking.SplitPanel">
+    <Grid x:Name="RootGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" x:Name="FirstColumn" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" x:Name="SecondColumn" />
+        </Grid.ColumnDefinitions>
+
+        <ContentControl x:Name="FirstContent" Grid.Column="0" />
+
+        <GridSplitter x:Name="Splitter"
+                      Grid.Column="1"
+                      Width="4"
+                      ResizeDirection="Columns"
+                      Background="Transparent" />
+
+        <ContentControl x:Name="SecondContent" Grid.Column="2" />
+    </Grid>
+</UserControl>
