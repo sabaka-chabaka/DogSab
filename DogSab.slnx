@@ -21,6 +21,7 @@
     </Folder>
     <Folder Name="/src/Platform/Editor/">
         <Project Path="src/Platform/Editor/DogSab.Platform.Editor.Highlighting/DogSab.Platform.Editor.Highlighting.csproj" />
+        <Project Path="src/Platform/Editor/DogSab.Platform.Editor.Refactoring/DogSab.Platform.Editor.Refactoring.csproj" />
         <Project Path="src/Platform/Editor/DogSab.Platform.Editor/DogSab.Platform.Editor.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Editor/Abstractions/">
