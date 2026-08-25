@@ -11,4 +11,14 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Avalonia" Version="12.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Ui\Themes\DogSab.Platform.Ui.Themes\DogSab.Platform.Ui.Themes.csproj" />
+      <ProjectReference Include="..\Abstractions\DogSab.Platform.Editor.Abstractions\DogSab.Platform.Editor.Abstractions.csproj" />
+      <ProjectReference Include="..\DogSab.Platform.Editor.Highlighting\DogSab.Platform.Editor.Highlighting.csproj" />
+    </ItemGroup>
+
 </Project>
