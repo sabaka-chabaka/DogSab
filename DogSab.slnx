@@ -20,6 +20,7 @@
         <Project Path="src/Platform/Psi/Abstractions/DogSab.Platform.Psi.Abstractions/DogSab.Platform.Psi.Abstractions.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Editor/">
+        <Project Path="src/Platform/Editor/DogSab.Platform.Editor.Highlighting/DogSab.Platform.Editor.Highlighting.csproj" />
         <Project Path="src/Platform/Editor/DogSab.Platform.Editor/DogSab.Platform.Editor.csproj" />
     </Folder>
     <Folder Name="/src/Platform/Editor/Abstractions/">
