@@ -16,9 +16,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Psi\DogSab.Platform.Psi\DogSab.Platform.Psi.csproj" />
+      <ProjectReference Include="..\..\Ui\Actions\DogSab.Platform.Ui.Actions\DogSab.Platform.Ui.Actions.csproj" />
       <ProjectReference Include="..\..\Ui\Themes\DogSab.Platform.Ui.Themes\DogSab.Platform.Ui.Themes.csproj" />
+      <ProjectReference Include="..\..\Vfs\DogSab.Platform.Vfs\DogSab.Platform.Vfs.csproj" />
       <ProjectReference Include="..\Abstractions\DogSab.Platform.Editor.Abstractions\DogSab.Platform.Editor.Abstractions.csproj" />
       <ProjectReference Include="..\DogSab.Platform.Editor.Highlighting\DogSab.Platform.Editor.Highlighting.csproj" />
+      <ProjectReference Include="..\DogSab.Platform.Editor\DogSab.Platform.Editor.csproj" />
     </ItemGroup>
 
 </Project>

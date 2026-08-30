@@ -106,22 +106,16 @@ public sealed class DocumentImpl : IDocument
         return true;
     }
     
-    /// <summary>
-    /// Resolves a flat character offset into a full <see cref="TextPosition"/>
-    /// carrying both the offset and its current (line, column) representation.
-    /// Exposed publicly so other Editor components (e.g.
-    /// <see cref="Caret.CaretModelImpl"/>) can convert offsets without each
-    /// maintaining their own line index.
-    /// </summary>
-    /// <param name="offset">
-    /// The flat character offset to resolve.
-    /// </param>
-    /// <returns>
-    /// The resolved text position.
-    /// </returns>
+    /// <inheritdoc />
     public TextPosition ResolvePosition(int offset)
     {
         return _lineIndex.ToPosition(offset);
+    }
+
+    /// <inheritdoc />
+    public int ResolveOffset(int line, int column)
+    {
+        return _lineIndex.ToOffset(line, column);
     }
 
     /// <inheritdoc />

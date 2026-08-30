@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:completion="using:DogSab.Platform.Editor.Abstractions.Completion"
+             x:Class="DogSab.Platform.Editor.Ui.Completion.CompletionPopup"
+             MaxHeight="300"
+             MinWidth="240">
+    <Border BorderBrush="Gray" BorderThickness="1" Background="#252526">
+        <ListBox x:Name="ItemsList" Background="Transparent">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="completion:CompletionItem">
+                    <Grid ColumnDefinitions="*, Auto" Margin="4,2">
+                        <TextBlock Grid.Column="0" Text="{Binding DisplayText}" FontFamily="Consolas" />
+                        <TextBlock Grid.Column="1" Text="{Binding Detail}" Foreground="Gray" FontSize="11" Margin="8,0,0,0" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Border>
+</UserControl>

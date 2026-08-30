@@ -54,4 +54,32 @@ public interface IDocument
     /// <param name="listener">The listener to subscribe.</param>
     /// <returns>A disposable that unsubscribes the listener when disposed.</returns>
     System.IDisposable AddListener(IDocumentListener listener);
+    
+    /// <summary>
+    /// Resolves a flat character offset into a full <see cref="Caret.TextPosition"/>
+    /// carrying both the offset and its current (line, column) representation,
+    /// based on this document's current text.
+    /// </summary>
+    /// <param name="offset">
+    /// The flat character offset to resolve.
+    /// </param>
+    /// <returns>
+    /// The resolved text position.
+    /// </returns>
+    Caret.TextPosition ResolvePosition(int offset);
+
+    /// <summary>
+    /// Resolves a (line, column) pair back into a flat character offset,
+    /// based on this document's current text.
+    /// </summary>
+    /// <param name="line">
+    /// The zero-based line number.
+    /// </param>
+    /// <param name="column">
+    /// The zero-based column number within the line.
+    /// </param>
+    /// <returns>
+    /// The corresponding flat offset.
+    /// </returns>
+    int ResolveOffset(int line, int column);
 }

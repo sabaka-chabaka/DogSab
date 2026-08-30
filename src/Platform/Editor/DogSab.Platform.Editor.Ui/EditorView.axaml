@@ -1,0 +1,12 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DogSab.Platform.Editor.Ui.EditorView"
+             Focusable="True">
+    <Grid ColumnDefinitions="Auto,*">
+        <Canvas x:Name="GutterCanvas" Grid.Column="0" Background="#252526" />
+        <ScrollViewer x:Name="ContentScrollViewer" Grid.Column="1">
+            <Canvas x:Name="TextCanvas" Background="#1E1E1E" />
+        </ScrollViewer>
+        <Popup x:Name="CompletionPopupHost" PlacementTarget="{Binding #TextCanvas}" IsLightDismissEnabled="True" />
+    </Grid>
+</UserControl>

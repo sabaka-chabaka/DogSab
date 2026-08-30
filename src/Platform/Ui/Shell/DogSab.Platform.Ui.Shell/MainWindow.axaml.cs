@@ -34,4 +34,18 @@ public partial class MainWindow : Window
     {
         CentralContentHost.Content = content;
     }
+    
+    /// <summary>
+    /// Sets the central content area to host editor tabs.
+    /// Replaces the earlier single-<see cref="ContentControl.Content"/>
+    /// approach, which had no way to represent multiple simultaneously open
+    /// files — see <see cref="EditorTabsHost"/> for the tab management logic itself.
+    /// </summary>
+    /// <param name="editorTabsHost">
+    /// The tabs host to display in the central content area.
+    /// </param>
+    public void SetEditorTabsHost(EditorTabsHost editorTabsHost)
+    {
+        CentralContentHost.Content = editorTabsHost;
+    }
 }
