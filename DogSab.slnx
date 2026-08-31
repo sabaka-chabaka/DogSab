@@ -19,6 +19,12 @@
     <Folder Name="/src/Platform/Psi/Abstractions/">
         <Project Path="src/Platform/Psi/Abstractions/DogSab.Platform.Psi.Abstractions/DogSab.Platform.Psi.Abstractions.csproj" />
     </Folder>
+    <Folder Name="/src/Platform/RunConfigurations/">
+        <Project Path="src/Platform/RunConfigurations/DogSab.Platform.RunConfigurations/DogSab.Platform.RunConfigurations.csproj" />
+    </Folder>
+    <Folder Name="/src/Platform/RunConfigurations/Abstractions/">
+        <Project Path="src/Platform/RunConfigurations/Abstractions/DogSab.Platform.RunConfigurations.Abstractions/DogSab.Platform.RunConfigurations.Abstractions.csproj" />
+    </Folder>
     <Folder Name="/src/Platform/Editor/">
         <Project Path="src/Platform/Editor/DogSab.Platform.Editor.Highlighting/DogSab.Platform.Editor.Highlighting.csproj" />
         <Project Path="src/Platform/Editor/DogSab.Platform.Editor.Refactoring/DogSab.Platform.Editor.Refactoring.csproj" />
