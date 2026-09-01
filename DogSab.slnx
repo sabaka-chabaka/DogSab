@@ -13,6 +13,12 @@
     <Folder Name="/src/Platform/Vfs/Abstractions/">
         <Project Path="src/Platform/Vfs/Abstractions/DogSab.Platform.Vfs.Abstractions/DogSab.Platform.Vfs.Abstractions.csproj" />
     </Folder>
+    <Folder Name="/src/Platform/Debugger/">
+        <Project Path="src/Platform/Debugger/DogSab.Platform.Debugger/DogSab.Platform.Debugger.csproj" />
+    </Folder>
+    <Folder Name="/src/Platform/Debugger/Abstractions/">
+        <Project Path="src/Platform/Debugger/Abstractions/DogSab.Platform.Debugger.Abstractions/DogSab.Platform.Debugger.Abstractions.csproj" />
+    </Folder>
     <Folder Name="/src/Platform/Psi/">
         <Project Path="src/Platform/Psi/DogSab.Platform.Psi/DogSab.Platform.Psi.csproj" />
     </Folder>
