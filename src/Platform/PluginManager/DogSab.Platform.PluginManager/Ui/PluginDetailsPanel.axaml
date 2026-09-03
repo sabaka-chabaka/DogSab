@@ -1,0 +1,16 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="DogSab.Platform.PluginManager.Ui.PluginDetailsPanel"
+             Width="260">
+    <StackPanel Margin="12" Spacing="6">
+        <TextBlock x:Name="DisplayNameText" FontWeight="Bold" FontSize="16" />
+        <TextBlock x:Name="AuthorText" Foreground="Gray" />
+        <TextBlock x:Name="VersionText" Foreground="Gray" />
+        <Separator Margin="0,8" />
+        <TextBlock x:Name="DescriptionText" TextWrapping="Wrap" />
+        <Separator Margin="0,8" />
+        <TextBlock Text="Dependencies:" FontWeight="Bold" />
+        <ItemsControl x:Name="DependenciesList" />
+        <TextBlock x:Name="FailureReasonText" Foreground="OrangeRed" TextWrapping="Wrap" IsVisible="False" />
+    </StackPanel>
+</UserControl>

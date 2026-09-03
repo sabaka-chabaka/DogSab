@@ -15,6 +15,12 @@
       <ProjectReference Include="..\..\Core\Abstractions\DogSab.Platform.Core.Abstractions\DogSab.Platform.Core.Abstractions.csproj" />
       <ProjectReference Include="..\..\Extensibility\Abstractions\DogSab.Platform.Extensibility.Abstractions\DogSab.Platform.Extensibility.Abstractions.csproj" />
       <ProjectReference Include="..\..\Extensibility\DogSab.Platform.PluginSystem\DogSab.Platform.PluginSystem.csproj" />
+      <ProjectReference Include="..\..\Ui\Actions\Abstractions\DogSab.Platform.Ui.Actions.Abstractions\DogSab.Platform.Ui.Actions.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Ui\Actions\DogSab.Platform.Ui.Actions\DogSab.Platform.Ui.Actions.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="12.1.0" />
     </ItemGroup>
 
 </Project>
