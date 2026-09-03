@@ -19,33 +19,33 @@ namespace DogSab.Platform.Editor.Completion;
 /// popup list, where display order matters — folding regions have no such
 /// user-facing ordering concern.
 /// </summary>
-public sealed class FoldingCoordinator
+public sealed class CompletionCoordinator
 {
     private readonly IExtensionPointRegistry _extensionPointRegistry;
     private readonly ILogger _logger;
 
-    public FoldingCoordinator(IExtensionPointRegistry extensionPointRegistry, ILoggerFactory loggerFactory)
+    public CompletionCoordinator(IExtensionPointRegistry extensionPointRegistry, ILoggerFactory loggerFactory)
     {
         _extensionPointRegistry = extensionPointRegistry;
-        _logger = loggerFactory.GetLogger(typeof(FoldingCoordinator));
+        _logger = loggerFactory.GetLogger(typeof(CompletionCoordinator));
     }
 
-    public IReadOnlyList<IFoldingRegion> ComputeFoldingRegions(IPsiFile psiFile)
+    public IReadOnlyList<CompletionItem> GetCompletions(IPsiFile psiFile, TextPosition caretPosition)
     {
-        var results = new List<IFoldingRegion>();
+        var results = new List<CompletionItem>();
 
-        foreach (var provider in _extensionPointRegistry.GetExtensions(EditorExtensionPoints.FOLDING_PROVIDER))
+        foreach (var provider in _extensionPointRegistry.GetExtensions(EditorExtensionPoints.COMPLETION_PROVIDER))
         {
             try
             {
-                results.AddRange(provider.ComputeFoldingRegions(psiFile));
+                results.AddRange(provider.GetCompletions(psiFile, caretPosition));
             }
             catch (Exception ex)
             {
-                _logger.Error("Folding provider '{0}' failed for file '{1}'", ex, provider.GetType().FullName, psiFile.VirtualFile.Path);
+                _logger.Error("Completion provider '{0}' failed for file '{1}'", ex, provider.GetType().FullName, psiFile.VirtualFile.Path);
             }
         }
 
-        return results;
+        return results.OrderByDescending(item => item.Priority).ToList();
     }
 }
