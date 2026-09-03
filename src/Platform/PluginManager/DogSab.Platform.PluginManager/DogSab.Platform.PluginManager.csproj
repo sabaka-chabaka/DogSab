@@ -11,4 +11,10 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Core\Abstractions\DogSab.Platform.Core.Abstractions\DogSab.Platform.Core.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Extensibility\Abstractions\DogSab.Platform.Extensibility.Abstractions\DogSab.Platform.Extensibility.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Extensibility\DogSab.Platform.PluginSystem\DogSab.Platform.PluginSystem.csproj" />
+    </ItemGroup>
+
 </Project>
