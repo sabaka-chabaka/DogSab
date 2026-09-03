@@ -1,3 +1,4 @@
+using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.Editor.Abstractions.Events;
 using DogSab.Platform.Editor.Abstractions.Folding;
 using DogSab.Platform.Extensibility.Abstractions.ExtensionPoints;
@@ -17,41 +18,29 @@ namespace DogSab.Platform.Editor.Folding;
 /// </summary>
 public sealed class FoldingCoordinator
 {
-    /// <summary>
-    /// The platform's extension point registry, used to look up every
-    /// currently registered <see cref="IFoldingProvider"/>.
-    /// </summary>
     private readonly IExtensionPointRegistry _extensionPointRegistry;
+    private readonly ILogger _logger;
 
-    /// <summary>
-    /// Creates a new folding coordinator.
-    /// </summary>
-    /// <param name="extensionPointRegistry">
-    /// The registry to resolve folding providers from.
-    /// </param>
-    public FoldingCoordinator(IExtensionPointRegistry extensionPointRegistry)
+    public FoldingCoordinator(IExtensionPointRegistry extensionPointRegistry, ILoggerFactory loggerFactory)
     {
         _extensionPointRegistry = extensionPointRegistry;
+        _logger = loggerFactory.GetLogger(typeof(FoldingCoordinator));
     }
 
-    /// <summary>
-    /// Computes every foldable region for a file by asking every currently
-    /// registered folding provider to contribute its findings.
-    /// </summary>
-    /// <param name="psiFile">
-    /// The file's parsed PSI tree to compute folding regions for.
-    /// </param>
-    /// <returns>
-    /// Every foldable region found, across all registered providers,
-    /// in no particular guaranteed order.
-    /// </returns>
     public IReadOnlyList<IFoldingRegion> ComputeFoldingRegions(IPsiFile psiFile)
     {
         var results = new List<IFoldingRegion>();
 
         foreach (var provider in _extensionPointRegistry.GetExtensions(EditorExtensionPoints.FOLDING_PROVIDER))
         {
-            results.AddRange(provider.ComputeFoldingRegions(psiFile));
+            try
+            {
+                results.AddRange(provider.ComputeFoldingRegions(psiFile));
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Folding provider '{0}' failed for file '{1}'", ex, provider.GetType().FullName, psiFile.VirtualFile.Path);
+            }
         }
 
         return results;

@@ -1,3 +1,5 @@
+using DogSab.Platform.Editor.Highlighting;
+
 namespace DogSab.Platform.Ui.Themes;
 
 /// <summary>
@@ -23,4 +25,22 @@ public interface ITheme
 
     /// <summary>The accent color used for selections, highlights, and focus indicators.</summary>
     string AccentColor { get; }
+    
+    /// <summary>
+    /// Resolves the display color for a specific syntax highlighting
+    /// category (e.g. <c>"csharp.keyword"</c>), falling back to
+    /// <see cref="ForegroundColor"/> for any category the theme has no
+    /// specific color for — added to close the gap where
+    /// <c>Editor.Ui.Rendering.EditorTextRenderer</c> previously rendered
+    /// every highlighted span in the same default foreground color
+    /// regardless of its category, making syntax highlighting compute
+    /// correctly but display with no visible effect.
+    /// </summary>
+    /// <param name="category">
+    /// The highlighting category to resolve a color for.
+    /// </param>
+    /// <returns>
+    /// The color to render text of this category in, as a hex string.
+    /// </returns>
+    string ResolveCategoryColor(ColorCategory category);
 }

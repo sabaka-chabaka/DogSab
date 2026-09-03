@@ -11,4 +11,8 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\Editor\DogSab.Platform.Editor.Highlighting\DogSab.Platform.Editor.Highlighting.csproj" />
+    </ItemGroup>
+
 </Project>

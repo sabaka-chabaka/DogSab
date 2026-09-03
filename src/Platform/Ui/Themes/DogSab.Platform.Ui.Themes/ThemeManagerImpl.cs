@@ -1,3 +1,5 @@
+using DogSab.Platform.Editor.Highlighting;
+
 namespace DogSab.Platform.Ui.Themes;
 
 /// <summary>
@@ -57,10 +59,24 @@ public sealed class ThemeManagerImpl
     /// <summary>The platform's built-in default dark theme, always available even with no plugins installed.</summary>
     private sealed class DefaultDarkTheme : ITheme
     {
+        private static readonly Dictionary<string, string> CategoryColors = new()
+        {
+            ["csharp.keyword"] = "#569CD6",
+            ["csharp.stringLiteral"] = "#CE9178",
+            ["csharp.comment"] = "#6A9955",
+            ["csharp.identifier"] = "#D4D4D4",
+            ["csharp.numberLiteral"] = "#B5CEA8"
+        };
+
         public string Id => "dogsab.dark";
         public string DisplayName => "DogSab Dark";
         public string BackgroundColor => "#1E1E1E";
         public string ForegroundColor => "#D4D4D4";
         public string AccentColor => "#569CD6";
+
+        public string ResolveCategoryColor(ColorCategory category)
+        {
+            return CategoryColors.TryGetValue(category.Value, out var color) ? color : ForegroundColor;
+        }
     }
 }

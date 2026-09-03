@@ -1,6 +1,8 @@
+using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.Editor.Abstractions.Caret;
 using DogSab.Platform.Editor.Abstractions.Completion;
 using DogSab.Platform.Editor.Abstractions.Events;
+using DogSab.Platform.Editor.Abstractions.Folding;
 using DogSab.Platform.Extensibility.Abstractions.ExtensionPoints;
 using DogSab.Platform.Psi.Abstractions.Tree;
 
@@ -17,51 +19,33 @@ namespace DogSab.Platform.Editor.Completion;
 /// popup list, where display order matters — folding regions have no such
 /// user-facing ordering concern.
 /// </summary>
-public sealed class CompletionCoordinator
+public sealed class FoldingCoordinator
 {
-    /// <summary>
-    /// The platform's extension point registry, used to look up every
-    /// currently registered <see cref="ICompletionProvider"/>.
-    /// </summary>
     private readonly IExtensionPointRegistry _extensionPointRegistry;
+    private readonly ILogger _logger;
 
-    /// <summary>
-    /// Creates a new completion coordinator.
-    /// </summary>
-    /// <param name="extensionPointRegistry">
-    /// The registry to resolve completion providers from.
-    /// </param>
-    public CompletionCoordinator(IExtensionPointRegistry extensionPointRegistry)
+    public FoldingCoordinator(IExtensionPointRegistry extensionPointRegistry, ILoggerFactory loggerFactory)
     {
         _extensionPointRegistry = extensionPointRegistry;
+        _logger = loggerFactory.GetLogger(typeof(FoldingCoordinator));
     }
 
-    /// <summary>
-    /// Computes completion suggestions at a given position by asking every
-    /// currently registered completion provider to contribute its
-    /// findings, then sorting the aggregated result by descending priority.
-    /// </summary>
-    /// <param name="psiFile">
-    /// The file's parsed PSI tree.
-    /// </param>
-    /// <param name="caretPosition">
-    /// The position completion was requested at.
-    /// </param>
-    /// <returns>
-    /// The aggregated completion items, ordered from highest to lowest
-    /// <see cref="CompletionItem.Priority"/>.
-    /// </returns>
-    public IReadOnlyList<CompletionItem> GetCompletions(IPsiFile psiFile, TextPosition caretPosition)
+    public IReadOnlyList<IFoldingRegion> ComputeFoldingRegions(IPsiFile psiFile)
     {
-        var results = new List<CompletionItem>();
+        var results = new List<IFoldingRegion>();
 
-        foreach (var provider in _extensionPointRegistry.GetExtensions(EditorExtensionPoints.COMPLETION_PROVIDER))
+        foreach (var provider in _extensionPointRegistry.GetExtensions(EditorExtensionPoints.FOLDING_PROVIDER))
         {
-            results.AddRange(provider.GetCompletions(psiFile, caretPosition));
+            try
+            {
+                results.AddRange(provider.ComputeFoldingRegions(psiFile));
+            }
+            catch (Exception ex)
+            {
+                _logger.Error("Folding provider '{0}' failed for file '{1}'", ex, provider.GetType().FullName, psiFile.VirtualFile.Path);
+            }
         }
 
-        return results
-            .OrderByDescending(item => item.Priority)
-            .ToList();
+        return results;
     }
 }

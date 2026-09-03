@@ -64,14 +64,14 @@ public sealed class TopologicalSorter<TNode, TKey> where TKey : notnull
 
         if (!visiting.Add(currentKey))
         {
-            throw new TopologicalSortCycleException<TKey>(BuildCyclePath(visiting, currentKey));
+            throw new TopologicalSortCycleException(BuildCyclePath(visiting, currentKey));
         }
 
         foreach (var dependencyKey in dependencyKeysSelector(current))
         {
             if (!byKey.TryGetValue(dependencyKey, out var dependencyNode))
             {
-                throw new TopologicalSortMissingDependencyException<TKey>(currentKey, dependencyKey);
+                throw new TopologicalSortMissingDependencyException(currentKey!.ToString()!, dependencyKey!.ToString()!);
             }
 
             Visit(dependencyNode, byKey, keySelector, dependencyKeysSelector, visited, visiting, result);
@@ -90,8 +90,13 @@ public sealed class TopologicalSorter<TNode, TKey> where TKey : notnull
     }
 }
 
-/// <summary>Thrown when <see cref="TopologicalSorter{TNode,TKey}"/> detects a cycle among dependencies.</summary>
-public sealed class TopologicalSortCycleException<TKey> : Exception
+/// <summary>
+/// Thrown when <see cref="TopologicalSorter{TNode,TKey}"/> detects a cycle
+/// among dependencies. Non-generic (unlike an earlier version of this
+/// exception), so callers can catch it without needing to know the
+/// resolver's specific TKey type at the catch site.
+/// </summary>
+public sealed class TopologicalSortCycleException : Exception
 {
     public TopologicalSortCycleException(string cyclePath)
         : base($"Circular dependency detected: {cyclePath}")
@@ -99,13 +104,17 @@ public sealed class TopologicalSortCycleException<TKey> : Exception
     }
 }
 
-/// <summary>Thrown when a node references a dependency key not present among the nodes being sorted.</summary>
-public sealed class TopologicalSortMissingDependencyException<TKey> : Exception
+/// <summary>
+/// Thrown when a node references a dependency key not present among the
+/// nodes being sorted. Non-generic for the same reason as
+/// <see cref="TopologicalSortCycleException"/>.
+/// </summary>
+public sealed class TopologicalSortMissingDependencyException : Exception
 {
-    public TKey DependentKey { get; }
-    public TKey MissingDependencyKey { get; }
+    public string DependentKey { get; }
+    public string MissingDependencyKey { get; }
 
-    public TopologicalSortMissingDependencyException(TKey dependentKey, TKey missingDependencyKey)
+    public TopologicalSortMissingDependencyException(string dependentKey, string missingDependencyKey)
         : base($"Node '{dependentKey}' depends on '{missingDependencyKey}', which was not found among the nodes being sorted.")
     {
         DependentKey = dependentKey;

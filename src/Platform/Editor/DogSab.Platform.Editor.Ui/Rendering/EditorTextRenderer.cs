@@ -162,7 +162,8 @@ public sealed class EditorTextRenderer
             // category-to-color map. A real implementation needs ITheme
             // extended with such a map before per-token-kind coloring works.
             var runText = lineText[lineRelativeStart..lineRelativeEnd];
-            cursorX = RenderRun(context, runText, cursorX, topOffset, theme.ForegroundColor);
+            var categoryColor = theme.ResolveCategoryColor(span.Category);
+            cursorX = RenderRun(context, runText, cursorX, topOffset, categoryColor);
 
             lastRenderedEnd = lineRelativeEnd;
         }
