@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using DogSab.Platform.Core.Application.Application;
@@ -44,6 +45,7 @@ public partial class App : Application
 
             window.SetMenuBar(menu);
             window.SetStatusBar(statusBar);
+            window.SetCentralContent(new Panel()); 
 
             desktop.MainWindow = window;
         }

@@ -11,6 +11,7 @@ public partial class StatusBar : UserControl
     public StatusBar()
     {
         InitializeComponent();
+        SetStatusText("Ready");
     }
 
     /// <summary>Sets the general status text shown on the left.</summary>

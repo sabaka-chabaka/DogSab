@@ -43,9 +43,11 @@ public sealed class UiShellStartupActivity : IStartupActivity
             var mainMenuGroup = _mainMenuGroupBuilder.Build();
             var menu = _menuBarBuilder.Build(mainMenuGroup);
             var statusBar = new StatusBar();
+            var editorTabsHost = new EditorTabsHost();
 
             window.SetMenuBar(menu);
             window.SetStatusBar(statusBar);
+            window.SetEditorTabsHost(editorTabsHost);
             window.Show();
 
             logger.Info("Main window shown.");

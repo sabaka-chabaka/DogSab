@@ -6,6 +6,6 @@
     <DockPanel>
         <ContentControl x:Name="MenuBarHost" DockPanel.Dock="Top" />
         <ContentControl x:Name="StatusBarHost" DockPanel.Dock="Bottom" />
-        <ContentControl x:Name="CentralContentHost" DockPanel.Dock="Top" />
+        <ContentControl x:Name="CentralContentHost" />
     </DockPanel>
 </Window>
