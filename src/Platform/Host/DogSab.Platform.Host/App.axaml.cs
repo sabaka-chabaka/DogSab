@@ -1,16 +1,16 @@
 using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using DogSab.Platform.Core.Application.Application;
+using DogSab.Platform.Extensibility.Abstractions.ExtensionPoints;
+using DogSab.Platform.Ui.Actions;
+using DogSab.Platform.Ui.Actions.Abstractions;
+using DogSab.Platform.Ui.Shell;
 
 namespace DogSab.Platform.Host;
 
 /// <summary>
-/// The Avalonia application object. Deliberately does not itself create or
-/// show the main window — that already happens inside
-/// <c>Ui.Shell.Startup.UiShellStartupActivity</c>, which runs as part of
-/// <see cref="Core.Application.EntryPoints.ApplicationBuilder.Start"/>'s
-/// startup activity pipeline, before Avalonia's own lifetime even begins.
-/// This class's role is purely to satisfy Avalonia's own required
-/// application bootstrap shape.
+/// The Avalonia application object.
 /// </summary>
 public partial class App : Application
 {
@@ -23,6 +23,31 @@ public partial class App : Application
     /// <inheritdoc />
     public override void OnFrameworkInitializationCompleted()
     {
+        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            var window = new MainWindow();
+            var actionRegistry = (IExtensionPointRegistry)DogSabApplication.Instance.RootServiceContainer
+                .GetService(typeof(IExtensionPointRegistry));
+
+            if (!actionRegistry.IsExtensionPointDeclared(ActionExtensionPoints.ACTION.Id))
+            {
+                actionRegistry.RegisterExtensionPoint(ActionExtensionPoints.ACTION, ExtensionPointArea.Application);
+            }
+
+            var actionManager = new ActionManagerImpl(actionRegistry);
+            var activeProjectTracker = new ActiveProjectTracker();
+            var menuBarBuilder = new MenuBarBuilder(actionManager, activeProjectTracker);
+            var mainMenuGroupBuilder = new MainMenuGroupBuilder(actionManager);
+            var mainMenuGroup = mainMenuGroupBuilder.Build();
+            var menu = menuBarBuilder.Build(mainMenuGroup);
+            var statusBar = new StatusBar();
+
+            window.SetMenuBar(menu);
+            window.SetStatusBar(statusBar);
+
+            desktop.MainWindow = window;
+        }
+
         base.OnFrameworkInitializationCompleted();
     }
 }

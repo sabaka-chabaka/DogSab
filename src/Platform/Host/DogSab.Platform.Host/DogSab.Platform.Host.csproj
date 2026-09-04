@@ -20,6 +20,9 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Core\Application\DogSab.Platform.Core.Application\DogSab.Platform.Core.Application.csproj" />
+      <ProjectReference Include="..\..\Ui\Actions\Abstractions\DogSab.Platform.Ui.Actions.Abstractions\DogSab.Platform.Ui.Actions.Abstractions.csproj" />
+      <ProjectReference Include="..\..\Ui\Actions\DogSab.Platform.Ui.Actions\DogSab.Platform.Ui.Actions.csproj" />
+      <ProjectReference Include="..\..\Ui\Shell\DogSab.Platform.Ui.Shell\DogSab.Platform.Ui.Shell.csproj" />
     </ItemGroup>
 
 </Project>
