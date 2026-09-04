@@ -112,7 +112,11 @@ public sealed class PlatformBootstrapper
         var extensionPointRegistry = RunPhase(BootstrapPhase.ServiceContainer, () =>
         {
             var currentProjectAccessor = new DogSab.Platform.Core.Impl.Project.CurrentProjectAccessorImpl();
-            return new ExtensionPointRegistryImpl(currentProjectAccessor);
+            var registry = new ExtensionPointRegistryImpl(currentProjectAccessor);
+            registry.RegisterExtensionPoint(
+                StartupActivityExtensionPoints.STARTUP_ACTIVITY,
+                Extensibility.Abstractions.ExtensionPoints.ExtensionPointArea.Application);
+            return registry;
         });
         
         rootContainer.RegisterInstance<Extensibility.Abstractions.ExtensionPoints.IExtensionPointRegistry>(extensionPointRegistry);

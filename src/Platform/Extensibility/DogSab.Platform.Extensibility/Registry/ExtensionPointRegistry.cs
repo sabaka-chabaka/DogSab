@@ -14,6 +14,8 @@ namespace DogSab.Platform.Extensibility.Registry;
 /// </summary>
 internal sealed class ExtensionPointEntry
 {
+    private static readonly Guid ApplicationScopeKey = Guid.Empty;
+
     /// <summary>The contract type implementations registered against this extension point must satisfy.</summary>
     public Type ContractType { get; }
 
@@ -21,13 +23,13 @@ internal sealed class ExtensionPointEntry
     public ExtensionPointArea Area { get; }
 
     /// <summary>
-    /// Registered implementations, keyed by scope: <c>null</c> for the
+    /// Registered implementations, keyed by scope: <c>Guid.Empty</c> for the
     /// application-wide list, or a specific project's ID for that project's list.
     /// </summary>
-    private readonly ConcurrentDictionary<Guid?, List<object>> _implementationsByScope = new();
+    private readonly ConcurrentDictionary<Guid, List<object>> _implementationsByScope = new();
 
     /// <summary>Guards mutation of an individual scope's list, since List&lt;T&gt; itself is not thread-safe.</summary>
-    private readonly ConcurrentDictionary<Guid?, object> _scopeLocks = new();
+    private readonly ConcurrentDictionary<Guid, object> _scopeLocks = new();
 
     /// <summary>
     /// Creates a new extension point entry.
@@ -40,6 +42,8 @@ internal sealed class ExtensionPointEntry
         Area = area;
     }
 
+    private static Guid ToKey(Guid? scopeKey) => scopeKey ?? ApplicationScopeKey;
+
     /// <summary>
     /// Registers an implementation instance under the given scope key.
     /// </summary>
@@ -51,8 +55,9 @@ internal sealed class ExtensionPointEntry
     /// <param name="implementation">The implementation instance to register.</param>
     public void Add(Guid? scopeKey, object implementation)
     {
-        var list = _implementationsByScope.GetOrAdd(scopeKey, static _ => new List<object>());
-        var lockObj = _scopeLocks.GetOrAdd(scopeKey, static _ => new object());
+        var key = ToKey(scopeKey);
+        var list = _implementationsByScope.GetOrAdd(key, static _ => new List<object>());
+        var lockObj = _scopeLocks.GetOrAdd(key, static _ => new object());
 
         lock (lockObj)
         {
@@ -67,12 +72,13 @@ internal sealed class ExtensionPointEntry
     /// <param name="implementation">The implementation instance to remove.</param>
     public void Remove(Guid? scopeKey, object implementation)
     {
-        if (!_implementationsByScope.TryGetValue(scopeKey, out var list))
+        var key = ToKey(scopeKey);
+        if (!_implementationsByScope.TryGetValue(key, out var list))
         {
             return;
         }
         
-        var lockObj = _scopeLocks.GetOrAdd(scopeKey, static _ => new object());
+        var lockObj = _scopeLocks.GetOrAdd(key, static _ => new object());
 
         lock (lockObj)
         {
@@ -89,12 +95,13 @@ internal sealed class ExtensionPointEntry
     /// <returns>A snapshot list of registered implementations for that scope.</returns>
     public IReadOnlyList<object> GetAll(Guid? scopeKey)
     {
-        if (!_implementationsByScope.TryGetValue(scopeKey, out var list))
+        var key = ToKey(scopeKey);
+        if (!_implementationsByScope.TryGetValue(key, out var list))
         {
             return [];
         }
 
-        var lockObj = _scopeLocks.GetOrAdd(scopeKey, static _ => new object());
+        var lockObj = _scopeLocks.GetOrAdd(key, static _ => new object());
 
         lock (lockObj)
         {
