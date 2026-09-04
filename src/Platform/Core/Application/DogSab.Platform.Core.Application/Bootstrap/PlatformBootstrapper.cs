@@ -1,4 +1,5 @@
 using DogSab.Platform.Core.Abstractions.Application;
+using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.Core.Abstractions.Messaging;
 using DogSab.Platform.Core.Abstractions.Progress;
@@ -18,6 +19,7 @@ using DogSab.Platform.Core.Settings.Impl.Store;
 using DogSab.Platform.Core.Threading.Impl.Background;
 using DogSab.Platform.Core.Threading.Impl.ReadWrite;
 using DogSab.Platform.Core.Threading.Impl.UiThread;
+using DogSab.Platform.Extensibility.Registry;
 
 namespace DogSab.Platform.Core.Application.Bootstrap;
 
@@ -106,6 +108,25 @@ public sealed class PlatformBootstrapper
             () => new StartupActivityRunner(loggerFactory, new LifecycleOrderResolver()));
 
         _logger.Info("Platform bootstrap phases complete; ready for startup activities and plugin loading");
+
+        var extensionPointRegistry = RunPhase(BootstrapPhase.ServiceContainer, () =>
+        {
+            var currentProjectAccessor = new DogSab.Platform.Core.Impl.Project.CurrentProjectAccessorImpl();
+            return new ExtensionPointRegistryImpl(currentProjectAccessor);
+        });
+        
+        rootContainer.RegisterInstance<Extensibility.Abstractions.ExtensionPoints.IExtensionPointRegistry>(extensionPointRegistry);
+        
+        RunPhase(BootstrapPhase.StartupActivities, () =>
+        {
+            var registry = (Extensibility.Abstractions.ExtensionPoints.IExtensionPointRegistry)
+                rootContainer.GetService(typeof(Extensibility.Abstractions.ExtensionPoints.IExtensionPointRegistry));
+
+            var allActivities = registry.GetExtensions(StartupActivityExtensionPoints.STARTUP_ACTIVITY);
+
+            startupActivityRunner.RunAllAsync(allActivities, CancellationToken.None).GetAwaiter().GetResult();
+            return true;
+        });
 
         return new BootstrapResult(
             loggerFactory,

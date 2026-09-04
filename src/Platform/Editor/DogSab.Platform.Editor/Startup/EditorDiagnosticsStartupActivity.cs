@@ -1,6 +1,7 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.Editor.Abstractions.Events;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Extensibility.Abstractions.ExtensionPoints;
 
 namespace DogSab.Platform.Editor.Startup;
@@ -11,6 +12,7 @@ namespace DogSab.Platform.Editor.Startup;
 /// the diagnostics pattern already used throughout the rest of the platform
 /// for every other extension-point-driven module.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class EditorDiagnosticsStartupActivity : IStartupActivity
 {
     /// <summary>

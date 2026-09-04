@@ -1,5 +1,6 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Extensibility.Abstractions.ExtensionPoints;
 using DogSab.Platform.RunConfigurations.Abstractions.Events;
 
@@ -9,6 +10,7 @@ namespace DogSab.Platform.RunConfigurations.Startup;
 /// Platform startup activity that logs which run configuration types are
 /// registered, mirroring the diagnostics pattern used throughout the platform.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class RunConfigDiagnosticsStartupActivity : IStartupActivity
 {
     /// <summary>

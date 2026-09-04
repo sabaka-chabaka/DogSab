@@ -1,5 +1,6 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.ProjectModel.Module;
 
 namespace DogSab.Platform.ProjectModel.Startup;
@@ -9,6 +10,7 @@ namespace DogSab.Platform.ProjectModel.Startup;
 /// — how many projects and modules are present — mirroring the diagnostics
 /// pattern used throughout the platform (Messaging, Extensibility, Vfs).
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class ProjectModelDiagnosticsStartupActivity : IStartupActivity
 {
     private readonly ProjectModelManager _manager;

@@ -1,5 +1,6 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Ui.Actions.Abstractions;
 
 namespace DogSab.Platform.Ui.Actions;
@@ -14,6 +15,7 @@ namespace DogSab.Platform.Ui.Actions;
 /// stable ID (surviving a class rename) can still register their own
 /// mapping later; this activity only establishes the baseline.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class ActionRegistrationStartupActivity : IStartupActivity
 {
     private readonly ActionManagerImpl _actionManager;

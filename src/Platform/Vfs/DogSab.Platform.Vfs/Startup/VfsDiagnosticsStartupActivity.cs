@@ -1,5 +1,6 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Vfs.FileSystem;
 
 namespace DogSab.Platform.Vfs.Startup;
@@ -11,6 +12,7 @@ namespace DogSab.Platform.Vfs.Startup;
 /// <see cref="LocalFileSystem"/> and <see cref="InMemoryFileSystem"/> were
 /// registered successfully during bootstrap.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class VfsDiagnosticsStartupActivity : IStartupActivity
 {
     private readonly VirtualFileSystemRegistry _registry;

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Logging.Impl.Configuration;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSabILoggerFactory = DogSab.Platform.Core.Abstractions.Logging.ILoggerFactory;
 
 namespace DogSab.Platform.Core.Logging.Impl.Startup;
@@ -15,6 +16,7 @@ namespace DogSab.Platform.Core.Logging.Impl.Startup;
 /// file, since this banner establishes exactly which build and environment
 /// produced the rest of the log.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class LoggingStartupActivity : IStartupActivity
 {
     /// <summary>Factory used to obtain the logger this activity writes the banner through.</summary>

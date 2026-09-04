@@ -1,5 +1,6 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Indexing.Building;
 using DogSab.Platform.ProjectModel.Abstractions.Roots;
 using DogSab.Platform.ProjectModel.Module;
@@ -17,6 +18,7 @@ namespace DogSab.Platform.Indexing.Startup;
 /// for indexing to finish; the platform becomes usable (in dumb mode) as soon
 /// as the UI is up, with indexing catching up in the background.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class IndexingStartupActivity : IStartupActivity
 {
     private readonly ProjectModelManager _projectModelManager;

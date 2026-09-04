@@ -1,6 +1,7 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.Core.Abstractions.Threading;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 
 namespace DogSab.Platform.Ui.Shell.Startup;
 
@@ -9,6 +10,7 @@ namespace DogSab.Platform.Ui.Shell.Startup;
 /// Runs last among currently defined startup activities, since it depends on
 /// actions and tool windows already being registered.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class UiShellStartupActivity : IStartupActivity
 {
     private readonly MenuBarBuilder _menuBarBuilder;

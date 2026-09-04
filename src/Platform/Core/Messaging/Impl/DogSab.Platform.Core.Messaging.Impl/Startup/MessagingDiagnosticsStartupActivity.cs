@@ -1,6 +1,7 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.Core.Messaging.Impl.Bus;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 
 namespace DogSab.Platform.Core.Messaging.Impl.Startup;
 
@@ -11,6 +12,7 @@ namespace DogSab.Platform.Core.Messaging.Impl.Startup;
 /// forgotten subscription. Intended for development/debug configuration
 /// see <see cref="Order"/> remrarks on when it runs relative to other activities.
 /// </summary>
+[Extension("core.startupActivity")]
 public class MessagingDiagnosticsStartupActivity : IStartupActivity
 {
     /// <summary>The registry whose subscription state is reported.</summary>

@@ -1,5 +1,6 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 
 namespace DogSab.Platform.Editor.Ui.Startup;
 
@@ -15,6 +16,7 @@ namespace DogSab.Platform.Editor.Ui.Startup;
 /// <c>Ui.Shell.MainWindow</c>) that has not been designed yet — see the
 /// remark below.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class EditorUiStartupActivity : IStartupActivity
 {
     /// <summary>

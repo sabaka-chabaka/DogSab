@@ -1,6 +1,7 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.Debugger.Abstractions.Events;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Extensibility.Abstractions.ExtensionPoints;
 
 namespace DogSab.Platform.Debugger.Startup;
@@ -9,6 +10,7 @@ namespace DogSab.Platform.Debugger.Startup;
 /// Platform startup activity that logs which debug process providers are
 /// registered, mirroring the diagnostics pattern used throughout the platform.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class DebuggerDiagnosticsStartupActivity : IStartupActivity
 {
     /// <summary>

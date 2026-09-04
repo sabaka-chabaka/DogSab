@@ -1,5 +1,6 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Psi.Abstractions.Registry;
 
 namespace DogSab.Platform.Psi.Startup;
@@ -8,6 +9,7 @@ namespace DogSab.Platform.Psi.Startup;
 /// Platform startup activity that logs which languages are registered,
 /// mirroring the diagnostics pattern used throughout the platform.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class PsiDiagnosticsStartupActivity : IStartupActivity
 {
     private readonly ILanguageRegistry _languageRegistry;

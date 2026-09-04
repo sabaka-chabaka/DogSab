@@ -1,5 +1,6 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Extensibility.Abstractions.ExtensionPoints;
 using DogSab.Platform.Extensibility.Registry;
 
@@ -12,6 +13,7 @@ namespace DogSab.Platform.Extensibility.Startup;
 /// that failed to load, or an extension point nobody has implemented yet.
 /// Mirrors <c>MessagingDiagnosticsStartupActivity</c> from the Messaging module.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class ExtensibilityDiagnosticsStartupActivity : IStartupActivity
 {
     /// <summary>The registry whose declared extension points are reported.</summary>

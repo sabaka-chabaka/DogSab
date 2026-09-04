@@ -2,6 +2,7 @@ using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
 using DogSab.Platform.Core.Threading.Impl.Diagnostics;
 using DogSab.Platform.Core.Threading.Impl.ReadWrite;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 
 namespace DogSab.Platform.Core.Threading.Impl.Startup;
 
@@ -13,6 +14,7 @@ namespace DogSab.Platform.Core.Threading.Impl.Startup;
 /// Runs very early (low <see cref="Order"/>) so the watchdog is active before
 /// any other startup activity might perform a long-running write action.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class ThreadingStartupActivity : IStartupActivity
 {
      /// <summary>The read/write manager whose internal lock should be monitored, if diagnostics are enabled.</summary>

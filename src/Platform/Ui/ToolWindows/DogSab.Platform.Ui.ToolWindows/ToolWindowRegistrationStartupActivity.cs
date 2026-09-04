@@ -1,5 +1,6 @@
 using DogSab.Platform.Core.Abstractions.Lifecycle;
 using DogSab.Platform.Core.Abstractions.Logging;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 
 namespace DogSab.Platform.Ui.ToolWindows;
 
@@ -10,6 +11,7 @@ namespace DogSab.Platform.Ui.ToolWindows;
 /// user-driven or persisted-layout concern for <c>Ui.Shell</c>, not something
 /// startup itself decides.
 /// </summary>
+[Extension("core.startupActivity")]
 public sealed class ToolWindowRegistrationStartupActivity : IStartupActivity
 {
     private readonly ToolWindowManagerImpl _toolWindowManager;
