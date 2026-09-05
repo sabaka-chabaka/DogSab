@@ -1,3 +1,4 @@
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Ui.Actions;
 using DogSab.Platform.Ui.Actions.Abstractions;
 using DogSab.Platform.Vfs.FileSystem;
@@ -14,6 +15,7 @@ namespace DogSab.Platform.Editor.Ui;
 /// purpose is to prove the open-file pipeline end to end, not to build a
 /// file picker.
 /// </summary>
+[Extension("ui.action")]
 [MenuPlacement("File")]
 public sealed class OpenFileAction : AnAction
 {

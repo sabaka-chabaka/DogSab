@@ -1,4 +1,5 @@
 using DogSab.Platform.Editor.Ui;
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.ProjectModel.Module;
 using DogSab.Platform.Ui.ToolWindows.Abstractions;
 
@@ -10,6 +11,7 @@ namespace DogSab.Platform.Ui.Shell.ProjectView;
 /// closing the loop from "see a file in the tree" to "it opens in an
 /// editor tab" that was the whole point of building this tool window.
 /// </summary>
+[Extension("ui.toolWindow")]
 public sealed class ProjectViewToolWindowFactory : IToolWindowFactory
 {
     private readonly ProjectModelManager _projectModelManager;

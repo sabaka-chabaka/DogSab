@@ -120,6 +120,16 @@ public sealed class PlatformBootstrapper
         });
         
         rootContainer.RegisterInstance<Extensibility.Abstractions.ExtensionPoints.IExtensionPointRegistry>(extensionPointRegistry);
+
+        // A few startup activities (e.g. ExtensibilityDiagnosticsStartupActivity,
+        // ThreadingStartupActivity) ask for these two by their concrete type rather
+        // than their public interface, since they report on internals the interface
+        // doesn't expose. RegisterCoreServices above only registered the interfaces
+        // (its parameters are interface-typed, so that's what RegisterInstance<T>
+        // inferred T as there); register the concrete types too, from here, where
+        // both variables still carry their original concrete static type.
+        rootContainer.RegisterInstance(extensionPointRegistry);
+        rootContainer.RegisterInstance(readWriteActionManager);
         
         RunPhase(BootstrapPhase.StartupActivities, () =>
         {

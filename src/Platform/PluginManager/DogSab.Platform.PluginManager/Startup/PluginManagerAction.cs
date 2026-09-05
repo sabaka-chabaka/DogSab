@@ -1,3 +1,4 @@
+using DogSab.Platform.Extensibility.Abstractions.Attributes;
 using DogSab.Platform.Extensibility.Abstractions.Loading;
 using DogSab.Platform.PluginManager.Installation;
 using DogSab.Platform.PluginManager.Ui;
@@ -15,6 +16,7 @@ namespace DogSab.Platform.PluginManager.Startup;
 /// a real product would more likely place this under a dedicated
 /// "Settings" or "Tools" top-level menu once one exists.
 /// </summary>
+[Extension("ui.action")]
 [MenuPlacement("File")]
 public sealed class PluginManagerAction : AnAction
 {

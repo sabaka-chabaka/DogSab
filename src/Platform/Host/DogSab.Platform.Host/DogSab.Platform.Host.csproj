@@ -19,10 +19,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Core\Application\DogSab.Platform.Core.Application\DogSab.Platform.Core.Application.csproj" />
-      <ProjectReference Include="..\..\Ui\Actions\Abstractions\DogSab.Platform.Ui.Actions.Abstractions\DogSab.Platform.Ui.Actions.Abstractions.csproj" />
-      <ProjectReference Include="..\..\Ui\Actions\DogSab.Platform.Ui.Actions\DogSab.Platform.Ui.Actions.csproj" />
-      <ProjectReference Include="..\..\Ui\Shell\DogSab.Platform.Ui.Shell\DogSab.Platform.Ui.Shell.csproj" />
+        <ProjectReference Include="..\..\Core\Application\DogSab.Platform.Core.Application\DogSab.Platform.Core.Application.csproj" />
+      <ProjectReference Include="..\..\Indexing\DogSab.Platform.Indexing\DogSab.Platform.Indexing.csproj" />
+        <ProjectReference Include="..\..\Ui\Actions\Abstractions\DogSab.Platform.Ui.Actions.Abstractions\DogSab.Platform.Ui.Actions.Abstractions.csproj" />
+        <ProjectReference Include="..\..\Ui\Actions\DogSab.Platform.Ui.Actions\DogSab.Platform.Ui.Actions.csproj" />
+        <ProjectReference Include="..\..\Ui\Shell\DogSab.Platform.Ui.Shell\DogSab.Platform.Ui.Shell.csproj" />
+
+        <!--
+          The following four are referenced ONLY so their [Extension]-attributed
+          classes are actually built into DogSab.Platform.Host's output directory,
+          where InternalExtensionLoader can find and scan them. Nothing in Host's
+          own code calls into these modules directly — without a reference here,
+          their DLLs never end up next to the .exe at all, so InternalExtensionLoader
+          can't even discover them, let alone construct them.
+        -->
+        <ProjectReference Include="..\..\Vcs\DogSab.Platform.Vcs\DogSab.Platform.Vcs.csproj" />
+        <ProjectReference Include="..\..\Debugger\DogSab.Platform.Debugger\DogSab.Platform.Debugger.csproj" />
+        <ProjectReference Include="..\..\RunConfigurations\DogSab.Platform.RunConfigurations\DogSab.Platform.RunConfigurations.csproj" />
+        <ProjectReference Include="..\..\Indexing\DogSab.Platform.Indexing\DogSab.Platform.Indexing.csproj" />
+        <ProjectReference Include="..\..\PluginManager\DogSab.Platform.PluginManager\DogSab.Platform.PluginManager.csproj" />
     </ItemGroup>
 
 </Project>

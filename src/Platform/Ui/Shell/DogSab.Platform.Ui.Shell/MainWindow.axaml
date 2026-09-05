@@ -2,10 +2,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="DogSab.Platform.Ui.Shell.MainWindow"
         Title="DogSab"
+        Background="#1E1E1E"
         Width="1280" Height="800">
-    <DockPanel>
-        <ContentControl x:Name="MenuBarHost" DockPanel.Dock="Top" />
-        <ContentControl x:Name="StatusBarHost" DockPanel.Dock="Bottom" />
-        <ContentControl x:Name="CentralContentHost" />
+    <DockPanel Background="#1E1E1E">
+        <ContentControl x:Name="MenuBarHost" DockPanel.Dock="Top" Background="#3C3C3C" MinHeight="28" />
+        <ContentControl x:Name="StatusBarHost" DockPanel.Dock="Bottom" Background="#007ACC" MinHeight="22" />
+        <ContentControl x:Name="CentralContentHost" Background="#252526" />
     </DockPanel>
 </Window>

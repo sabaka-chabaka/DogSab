@@ -19,6 +19,14 @@ public sealed class MessageBusImpl : IMessageBus
     /// <summary>Storage of which listener instances are subscribed to which topics.</summary>
     private readonly TopicSubscriberRegistry _subscriberRegistry = new();
 
+    /// <summary>
+    /// The actual registry backing this bus's subscriptions — exposed so
+    /// diagnostics code (e.g. <c>MessagingDiagnosticsStartupActivity</c>) can
+    /// report on the real subscriber state rather than needing its own,
+    /// unrelated instance.
+    /// </summary>
+    public TopicSubscriberRegistry SubscriberRegistry => _subscriberRegistry;
+
     /// <summary>Cache of publisher proxies, one per topic.</summary>
     private readonly PublisherProxyCache _proxyCache;
 
